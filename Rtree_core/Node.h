@@ -1,13 +1,22 @@
+#include <vector>
+#include "Region.h"
 #include "Element.h"
+
+using namespace std;
 class Node
 {
+    public:
     //Informacion de que area abarca cada nodo
-    private:
-        int coordX;
-        int coordeY;
-        int width;
-        int height;
-        int count;
-    Element* data;//nul si es una region
-    Node* children;
+    bool isLeaf;
+    bool isInterno;
+
+    //Nodos internos
+    vector<Region> rchildren;
+    int r_children;
+
+    //Nodos hojas contienen elementos
+    vector<Element> echildren;
+    int e_children;
+
+    
 };
