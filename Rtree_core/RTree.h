@@ -13,12 +13,14 @@ class RTree
     int level;
 
     RTree(int degree);
-    bool insertElement(int minX, int minY, int maxX, int maxY, Element obj);
+    //bool insertElement(int minX, int minY, int maxX, int maxY, Element obj);
+    bool insertElement( Element obj);
     bool deleteElement(Element obj);
     vector<Element> queryRange(int minX, int minY, int maxX);
     vector<Element> queryNearest(Element obj, int k);
 //private:
-    void splitNode(Node &node);
+    Node* searchRegion(Region mbrObj);
+    void splitNode(Node *node);
     bool balanceTree();
     void minimunBoudaringRegion();
 };
