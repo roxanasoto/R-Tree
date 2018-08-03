@@ -10,21 +10,22 @@ RTree::RTree(int degree)
 
 bool RTree::insertElement(int minX, int minY, int maxX, int maxY, Element obj)
 {
-    // int minX, int minY, int maxX, int maxY representa el mbr del elemento
+    // int minX, int minY, int maxX, int maxY representa el mbb del elemento
     if(root == NULL)
     {
         //Insertar el primer elemento
         Node newNode;
         newNode.isLeaf = true;
-        newNode.countElement = 1;
-        newNode.parent = NULL;
+        newNode.echildren.push_back(obj);
+        newNode.e_children = 1;
+        newNode.r_children = 0;
         root = &newNode;
+        level = 0;
     } 
     else if(root->isLeaf)
     {
-        //Si es nodo hoja solo hay un nodo en el arbol
-        //Verificamos si aun hay espacio para insertar
-        if(root)
+        //Si es nodo hoja verificamos si aun hay espacio
+        if(root->e_children == max)
         {
             //Insertar y hacer split
             //splitNode(root);
@@ -33,9 +34,5 @@ bool RTree::insertElement(int minX, int minY, int maxX, int maxY, Element obj)
         {
 
         }
-    }
-    else 
-    {
-       // Node node = searc
     }
 }
