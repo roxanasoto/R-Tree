@@ -1,9 +1,11 @@
 //MBR
 class Region
 {
-    int coordX;
-    int coordeY;
-    int width;
-    int height;
-
+    public:
+        int coordX;
+        int coordY;
+        int width;//?
+        int height;//?
+        int coordMinX;
+        int coordMinY;
 };

@@ -16,11 +16,13 @@ class RTree
     //bool insertElement(int minX, int minY, int maxX, int maxY, Element obj);
     bool insertElement( Element obj);
     bool deleteElement(Element obj);
-    vector<Element> queryRange(int minX, int minY, int maxX);
+    vector<Element> queryRange(int minX, int minY, int maxX, int maxY);
     vector<Element> queryNearest(Element obj, int k);
 //private:
-    Node* searchRegion(Region mbrObj);
+    Node* searchRegion(Node *node, Region mbrObj);
     void splitNode(Node *node);
     bool balanceTree();
     void minimunBoudaringRegion();
+    Region calcularMbr(Region regionNode, Region regionElem);
+    vector<Element> queryRange(Node* node, Region regionSearch);
 };
