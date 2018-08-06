@@ -113,9 +113,13 @@ Node* RTree::searchRegion(Node *node, Region mbrObj)
             idx = i;
         }
     }
-    if(!(node->children(idx)->isLeaf))
+    if(!(node->children.at(idx)->isLeaf))
     {
-        searchRegion(node->children(idx));
+        result = searchRegion(node->children.at(idx), mbrObj);
+    }
+    else 
+    {
+        result = node->children.at(idx);
     }
     return result;
 }
