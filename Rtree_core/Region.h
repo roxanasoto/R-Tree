@@ -10,4 +10,5 @@ class Region
         int coordMinY;
 
         bool operator<( Region objRegion,  Region objRegioncmp);
+        
 };
