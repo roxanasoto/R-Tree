@@ -8,4 +8,6 @@ class Region
         int height;//?
         int coordMinX;
         int coordMinY;
+
+        bool operator<( Region objRegion,  Region objRegioncmp);
 };
