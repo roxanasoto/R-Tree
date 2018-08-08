@@ -6,6 +6,7 @@
         <meta name="description" content="An example using jPolygon">
         <meta name="keywords" content="HTML,CSS,JavaScript,jPolygon">
         <meta name="author" content="Roxana Soto">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
     <body onload="clear_canvas()">
         <div style="float:left">
@@ -19,6 +20,7 @@
                 <p><strong>Insert</strong></p>
                 <button id="i_point" type="button" onclick="insertPoint()">Point</button><font size="2">Press <strong>Left Click</strong> to draw a point.</font>
                 <br/><button id="i_polygon" type="button" onclick="insertPolygon()">Polygon</button><font size="2">Press Left Click</strong> to draw a point and <strong>CTRL+Click</strong> or <strong>Right Click</strong> to close the polygon.</font>
+                <button id="b_ajax" type="button"> Ajax test</button>
             </div>
             <form action="" method="post">
                 {{ form.csrf }}
