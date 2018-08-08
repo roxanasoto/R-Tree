@@ -9,6 +9,52 @@ rect = {},drag = false;
     //console.log(ev.keyCode);
     //ev.preventDefault();
 //});
+////////////////////// Insertar poligono nuevo ///////////////////////
+function test_func(){
+
+}
+
+
+$(document).ready(function(){
+    console.log("codigo facilito");
+    $('#b_ajax').click(function(){
+        //console.log("aquiiiii");
+        //console.log(perimeter);
+        //console.log(JSON.stringify(perimeter));
+        var url = "/insertar";
+
+        $.ajax({
+           type: 'POST',
+           url: url,
+           //dataType: 'json',
+           contentType: "application/json",
+           data: JSON.stringify(perimeter),
+           success: function(response)
+           {
+                console.log(response);
+
+           }
+       });
+    });
+});
+/////////////////////////////range query//////////////////////////////////////////
+function consultarRegion()
+{
+    var url = "/rangeQuery";
+
+    $.ajax({
+            type: 'POST',
+            url: url,
+            contentType: 'application/json',
+            data: JSON.stringify(perimeter),
+            success: function(response) {
+                console.log(response);
+            }
+    });
+
+
+}
+/////////////////////////////////////////////////////////////////////////
 
 var funcEvent = function(ev) {
            console.log('evento activar punto');

@@ -1,11 +1,23 @@
-#ifndef POLIGON_H
-#define POLIGON_H
+#ifndef POLYGON_H
+#define POLYGON_H
 
-
-class Poligon
+#include "Point.h"
+#include <vector>
+using namespace std;
+//
+class Polygon
 {
 public:
-    Poligon();
+    Polygon();
+    Polygon(int n); //crear un poligo de n puntos
+    void addPoint(int x,int y); //agrega punto al poligono
+    int size(); //retornna numero de puntos del poligono
+    vector<Point> getPoints();
+    
+private:
+    vector<Point>* points;
+    //std::vector<Point>* points;
+    int no_points;
 };
 
 #endif // POLIGON_H
