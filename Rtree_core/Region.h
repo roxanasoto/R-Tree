@@ -1,4 +1,7 @@
 //MBR
+#include <iostream>
+#include <math.h>
+using namespace std;
 class Region
 {
     public:
@@ -8,7 +11,7 @@ class Region
         int height;//?
         int coordMinX;
         int coordMinY;
-
-        bool operator<( Region objRegion,  Region objRegioncmp);
+        Region();
+        friend bool operator<( Region a , Region b);
         
 };
