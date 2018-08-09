@@ -201,10 +201,7 @@ function check_intersect(x,y){
 }
 
 function point_it(event) {
-    if(complete){
-        alert('Polygon already created');
-        return false;
-    }
+ 
     var rect, x, y;
 
     if(event.ctrlKey || event.which === 3 || event.button === 2){
@@ -219,8 +216,10 @@ function point_it(event) {
             return false;
         }
         draw(true);
+        perimeters.push(perimeter);
+        perimeter = new Array();
         alert('Polygon closed');
-	    event.preventDefault();
+        event.preventDefault();
         return false;
     } else {
         rect = canvas.getBoundingClientRect();
