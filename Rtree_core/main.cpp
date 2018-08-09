@@ -1,30 +1,22 @@
 #include "RTree.h"
-#include "Element.h"
+#include "Polygon.h"
 int main()
 {
     int n= 3;
     RTree* example = new RTree(n);
-    //Puntos
-    Point p1(3,5);
-    Point p2(1,1);
-    Point p3(3,1);
-    Point p4(3,10);
+    
+    Polygon p1;
+    p1.addPoint(1,1);
+    Polygon p2;
+    p2.addPoint(1,3);
+    Polygon p3;
+    p3.addPoint(9,3);
+    Polygon p4;
+    p4.addPoint(6,3);
 
-    Element a;
-    a.addPoint(p1);
-
-    Element b;
-    b.addPoint(p2);
-
-    Element c;
-    c.addPoint(p3);
-
-    Element d;
-    d.addPoint(p4);
-
-    example->insertElement(a);
-    example->insertElement(b);
-    example->insertElement(c);
-    example->insertElement(d);
+    example->insertElement(p1);
+    example->insertElement(p2);
+    example->insertElement(p3);
+    example->insertElement(p4);
 
 }

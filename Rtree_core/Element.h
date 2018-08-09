@@ -7,11 +7,15 @@
 class Element
 {
     public:
+        Element();
+        Element(Polygon pol);
+        int getOid();
+        Region getMbr();
+        Polygon getPolygon();
+    private:
         int oid;
         Region mbr;
         Polygon poligono;
-        Element();
-        void buildMbr();
 };
 
 #endif // ELEMENT_H
