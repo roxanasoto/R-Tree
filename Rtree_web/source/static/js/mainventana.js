@@ -3,7 +3,8 @@ var perimeter = new Array();
 var complete = false;
 var canvas = document.getElementById("jPolygon");
 var ctx;
-rect = {},drag = false;
+//rect = {},
+drag = false;
 //funciones para insertar punto
 //document.addEventListener("keydown",function(ev){
     //console.log(ev.keyCode);
@@ -13,7 +14,6 @@ rect = {},drag = false;
 function test_func(){
 
 }
-
 
 $(document).ready(function(){
     console.log("codigo facilito");
@@ -56,29 +56,36 @@ function consultarRegion()
 }
 /////////////////////////////////////////////////////////////////////////
 
-var funcEvent = function(ev) {
-           console.log('evento activar punto');
-           //var pointSize = 3;
-           getPosition(ev);
+var funcEventPoint = function(eventPoint) {
+    console.log('evento activar punto');
+    //var pointSize = 3;
+    getPosition(eventPoint);
 };
-function insertPoint(){
-     canvas.addEventListener('click',funcEvent );
+var funcEventPolygon = function(eventPolygon) {
+           console.log('event activar poligono;');
+           //var pointSize = 3;
+           point_it(eventPolygon);
+};
+function insertPoint(elem){
+    alert(elem.id);
+    canvas.addEventListener('click',funcEventPoint );
+    canvas.removeEventListener('click', funcEventPolygon);
 }
 
-function getPosition(event){
-console.log('gdibujando punto');
-     var rect = canvas.getBoundingClientRect();
-     var x = event.clientX - rect.left; // x == the location of the click in the document - the location (relative to the left) of the canvas in the document
-     var y = event.clientY - rect.top; // y == the location of the click in the document - the location (relative to the top) of the canvas in the document
+function getPosition(eventPoint){
+    console.log('gdibujando punto');
+    var rectPoint = canvas.getBoundingClientRect();
+    var x = eventPoint.clientX - rectPoint.left; // x == the location of the click in the document - the location (relative to the left) of the canvas in the document
+    var y = eventPoint.clientY - rectPoint.top; // y == the location of the click in the document - the location (relative to the top) of the canvas in the document
 
-     // This method will handle the coordinates and will draw them in the canvas.
-     drawCoordinates(x,y);
+    // This method will handle the coordinates and will draw them in the canvas.
+    drawCoordinatesPoint(x,y);
 }
 
-function drawCoordinates(x,y){
+function drawCoordinatesPoint(x,y){
     var pointSize = 3; // Change according to the size of the point.
     //var ctx = document.getElementById("canvas").getContext("2d");
-    ctx=canvas.getContext("2d");
+    //ctx=canvas.getContext("2d");
 
     ctx.fillStyle = "#ff2626"; // Red color
 
@@ -88,17 +95,21 @@ function drawCoordinates(x,y){
 }
 
 //funciones para insertar poligono
-
-var funcEventPolygon = function(event) {
-           console.log('evento activar poligono;');
+var funcEventPolygon = function(eventPolygon) {
+           console.log('event activar poligono;');
            //var pointSize = 3;
-           point_it(event);
+           point_it(eventPolygon);
 };
-function insertPolygon(){
-     canvas.addEventListener('click',funcEventPolygon );
+
+function insertPolygon(elem){
+    alert(elem.id);
+    console.log('function insertPolygon;');
+    canvas.addEventListener('click',funcEventPolygon );
+    canvas.removeEventListener('click', funcEventPoint);
 }
 
 function line_intersects(p0, p1, p2, p3) {
+    console.log('create line_intersects for each polygon;');
     var s1_x, s1_y, s2_x, s2_y;
     s1_x = p1['x'] - p0['x'];
     s1_y = p1['y'] - p0['y'];
@@ -118,32 +129,23 @@ function line_intersects(p0, p1, p2, p3) {
 }
 
 function point(x, y){
+
     ctx.fillStyle="red";
-    ctx.strokeStyle = "blue";
+    ctx.fill();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "red";
+    ctx.lineCap = "square";
     ctx.fillRect(x-2,y-2,4,4);
     ctx.moveTo(x,y);
 }
 
-function undo(){
-    ctx = undefined;
-    perimeter.pop();
-    complete = false;
-    start(true);
-}
-
-function clear_canvas(){
-    ctx = undefined;
-    perimeter = new Array();
-    complete = false;
-    document.getElementById('coordinates').value = '';
-    start();
-}
 
 function draw(end){
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = "white";
-    ctx.lineCap = "square";
     ctx.beginPath();
+    //ctx.lineWidth = 1;
+    //ctx.strokeStyle = "orange";
+    //ctx.lineCap = "square";
+
 
     for(var i=0; i<perimeter.length; i++){
         if(i==0){
@@ -154,13 +156,15 @@ function draw(end){
             end || point(perimeter[i]['x'],perimeter[i]['y']);
         }
     }
+
+
     if(end){
         ctx.lineTo(perimeter[0]['x'],perimeter[0]['y']);
         ctx.closePath();
-        ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+        ctx.fillStyle = 'orange';//colour for relleno of polygon
         ctx.fill();
-        ctx.strokeStyle = 'blue';
-        complete = true;
+        ctx.strokeStyle = 'orange';
+
     }
     ctx.stroke();
 
@@ -200,11 +204,11 @@ function check_intersect(x,y){
     return false;
 }
 
-function point_it(event) {
+function point_it(eventPolygon) {
  
-    var rect, x, y;
+    var rectPolygon, x, y;
 
-    if(event.ctrlKey || event.which === 3 || event.button === 2){
+    if(eventPolygon.ctrlKey || eventPolygon.which === 3 || eventPolygon.button === 2){
         if(perimeter.length==2){
             alert('You need at least three points for a polygon');
             return false;
@@ -219,12 +223,12 @@ function point_it(event) {
         perimeters.push(perimeter);
         perimeter = new Array();
         alert('Polygon closed');
-        event.preventDefault();
+        eventPolygon.preventDefault();
         return false;
-    } else {
-        rect = canvas.getBoundingClientRect();
-        x = event.clientX - rect.left;
-        y = event.clientY - rect.top;
+        } else {
+        rectPolygon = canvas.getBoundingClientRect();
+        x = eventPolygon.clientX - rectPolygon.left;
+        y = eventPolygon.clientY - rectPolygon.top;
         if (perimeter.length>0 && x == perimeter[perimeter.length-1]['x'] && y == perimeter[perimeter.length-1]['y']){
             // same point - double click
             return false;
@@ -286,11 +290,28 @@ function mouseMove(e) {
 function drawRegion() {
     ctx.putImageData(Image, 0, 0);
     ctx.fillStyle = 'rgba(0, 0, 255, 0.25)';
-    ctx.strokeStyle = 'red';
+    ctx.strokeStyle = 'green';
     ctx.strokeRect(rect.startX, rect.startY, rect.w, rect.h);
 
 }
 //funciones para buscar k elementos cercanos
 
 function queryNearest(){
+}
+
+
+//funciones para limpiar la ventana
+function undo(){
+    ctx = undefined;
+    perimeter.pop();
+    complete = false;
+    start(true);
+}
+
+function clear_canvas(){
+    ctx = undefined;
+    perimeter = new Array();
+    complete = false;
+    document.getElementById('coordinates').value = '';
+    start();
 }
