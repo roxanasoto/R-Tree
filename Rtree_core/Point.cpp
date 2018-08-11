@@ -2,13 +2,13 @@
 
 
 Point::Point(){}
-Point::Point(int x, int y):cx(x),cy(y)
+Point::Point(float x, float y):cx(x),cy(y)
 {
 //
 }
-int Point::getX(){
+float Point::getX(){
     return this->cx;
 }
-int Point::getY(){
+float Point::getY(){
     return this->cy;
 }

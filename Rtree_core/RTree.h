@@ -17,6 +17,7 @@ class RTree
 		void updateRegion(Node* node, Element *elem);
 		void print(Node *node);
     public:
+        RTree();
         RTree(int degree);
         bool insertElement( Polygon obj);
 		vector<Element> queryRange(int minX, int minY, int maxX, int maxY);

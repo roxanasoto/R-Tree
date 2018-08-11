@@ -272,7 +272,8 @@ function point_it(eventPolygon) {
         alert('Polygon closed');
         eventPolygon.preventDefault();
         return false;
-        } else {
+    } 
+    else {
         rectPolygon = canvas.getBoundingClientRect();
         x = eventPolygon.clientX - rectPolygon.left;
         y = eventPolygon.clientY - rectPolygon.top;

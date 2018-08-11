@@ -1,4 +1,5 @@
 #include "../../Rtree_core/Polygon.h"
+#include "../../Rtree_core/RTree.h"
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -6,32 +7,32 @@ using namespace std;
 // typedef std::vector<MBR> MyList;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Rtree{
-    vector<Polygon>* regiones;
-public:
-    Rtree(){
-        regiones = new vector<Polygon>();
-    }
-    void addRegion(Polygon p){
-        regiones->push_back(p);
-    }
-    void insert(vector<int> puntos){
-        Polygon newPolygon;
-        int coorX,coorY;
-        int index=0;
-        while(index<puntos.size()){
-            coorX = puntos[index];
-            coorY = puntos[index+1];
-            newPolygon.addPoint(coorX,coorY);
-            index +=2;
-        }
-        this->regiones->push_back(newPolygon);
-    }
-    int getTreeSize(){
-        return regiones->size();
-    }
+// class Rtree{
+//     vector<Polygon>* regiones;
+// public:
+//     Rtree(){
+//         regiones = new vector<Polygon>();
+//     }
+//     void addRegion(Polygon p){
+//         regiones->push_back(p);
+//     }
+//     void insert(vector<float> puntos){
+//         Polygon newPolygon;
+//         float coorX,coorY;
+//         int index=0;
+//         while(index<puntos.size()){
+//             coorX = puntos[index];
+//             coorY = puntos[index+1];
+//             newPolygon.addPoint(coorX,coorY);
+//             index +=2;
+//         }
+//         this->regiones->push_back(newPolygon);
+//     }
+//     int getTreeSize(){
+//         return regiones->size();
+//     }
 
-};
+// };
 
 
 #include <boost/python.hpp>
@@ -43,20 +44,23 @@ using namespace boost::python;
 
 class vc{
     private:
-        vector <int>* puntos ;
-        Rtree rtree;
+        vector <float>* puntos ;
+        RTree* rtree;
+        int no_polygons;
     public: 
         vc(){
-            puntos=new vector<int>();
-            //rtree = Rtree();
+            puntos=new vector<float>();
+            rtree = new RTree(3);
+            no_polygons = 0;
         };
         void set_vector();
-        void insert_coordinate(int);
+        void insert_coordinate(float);
         int vector_size();
         int rtree_size();
-        void rtree_insert(boost::python::list pts);
+        bool rtree_insert(boost::python::list pts);
         int vector_iterator(int index);
         boost::python::list rangeQuery(boost::python::list pts);
+        Polygon builPolygon(boost::python::list pts);
         ~vc(){};
 };
 
@@ -91,7 +95,7 @@ int vc::vector_size()
 }
 int vc::rtree_size()
 {   
-    return this->rtree.getTreeSize();
+    return this->no_polygons;
 }
 int vc::vector_iterator(int index)
 {   
@@ -99,35 +103,55 @@ int vc::vector_iterator(int index)
         return  (*puntos)[index];
     return 0;
 }
-void vc::insert_coordinate(int cc){
+void vc::insert_coordinate(float cc){
     this->puntos->push_back(cc);
 }
 /**
   *Funcion que inserta un poligono en el R-Tree
   *Input: lista python de puntos
 */
-void vc::rtree_insert(boost::python::list pts){
+bool vc::rtree_insert(boost::python::list pts){
+    // boost::python::ssize_t len = boost::python::len(pts);
+    // // double s=0;
+    // for(int i=0; i<len;i++){
+    //     float p = boost::python::extract<float>(pts[i]);
+    //     // int q = boost::python::extract<int>(pts[i]);
+    //     this->puntos->push_back(p);
+    //     //calculating..
+    // }
+    Polygon p= builPolygon(pts);
+    bool resultado = this->rtree->insertElement(p);
+    if(resultado)
+        this->no_polygons++;
+    
+    return resultado;
+}
+Polygon vc::builPolygon(boost::python::list pts){
     boost::python::ssize_t len = boost::python::len(pts);
-    double s=0;
-    for(int i=0; i<len;i++){
-        int p = boost::python::extract<int>(pts[i]);
-        // int q = boost::python::extract<int>(pts[i]);
-        this->puntos->push_back(p);
-        //calculating..
+    // double s=0;
+    Polygon newPolygon;
+    float cx, cy;
+
+    int i=0;
+    while(i<len){
+        cx = boost::python::extract<float>(pts[i]);
+        cy = boost::python::extract<float>(pts[i+1]);
+        newPolygon.addPoint(cx,cy);
+        i+=2;
     }
-    this->rtree.insert(*puntos);
+    return newPolygon;
 }
 boost::python::list vc::rangeQuery(boost::python::list pts){
    
     //resultado de consulta
     Polygon p1;
-    p1.addPoint(1,4);
-    p1.addPoint(1,4);
-    p1.addPoint(1,3);
+    p1.addPoint(1.112,4);
+    p1.addPoint(1.112,4);
+    p1.addPoint(1.1121,3);
 
     Polygon p2;
     p2.addPoint(2,8);
-    p2.addPoint(2,5);
+    p2.addPoint(2,5.66);
     p2.addPoint(2,3);
     
     Polygon p3;
@@ -138,7 +162,7 @@ boost::python::list vc::rangeQuery(boost::python::list pts){
     Polygon p4;
     p4.addPoint(4,9);
     p4.addPoint(4,12);
-    p4.addPoint(4,11);
+    p4.addPoint(4,11.0004);
 
     vector<Polygon> queryResult;
     queryResult.push_back(p1);
@@ -148,7 +172,7 @@ boost::python::list vc::rangeQuery(boost::python::list pts){
     //extraer puntos de los poligonos respuesta y convertirlos a python::list
     boost::python::list list;
     vector<Point> pg;
-    int x,y;
+    float x,y;
     for(int i=0;i<queryResult.size();i++){
         pg=queryResult[i].getPoints();
         int j=0;
@@ -193,11 +217,11 @@ BOOST_PYTHON_MODULE(mi_modulo){
         .def("rtree_insert",&vc::rtree_insert)
         .def("rangeQuery",&vc::rangeQuery)
     ;  
-    class_<Rtree>("Rtree")
-        .def(init<>())
-        .def(init<Rtree>())
-        .def("insert", &Rtree::insert)
-    ;
+    // class_<Rtree>("Rtree")
+    //     .def(init<>())
+    //     .def(init<Rtree>())
+    //     .def("insert", &Rtree::insert)
+    // ;
     class_<Polygon>("Polygon")
         .def(init<>())
         .def(init<Polygon>())

@@ -1,15 +1,19 @@
+#ifndef POINT_H
+#define POINT_H
+
 #include "Point.h"
 
-
-Point::Point(){}
-Point::Point(float x, float y):float(x),float(y)
+class Point
 {
+public:
+    Point();
+    Point(float, float);
+    float getX();
+    float getY();
+private: 
+    float cx;
+    float cy;
 //
-}
-float Point::getX(){
-    return this->cx;
-}
-float Point::getY(){
-    return this->cy;
-}
+};
 
+#endif // POINT_H

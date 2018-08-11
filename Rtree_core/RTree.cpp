@@ -1,6 +1,7 @@
 #include "RTree.h"
 using namespace std;
 
+RTree::RTree(){}
 RTree::RTree(int degree)
 {
     this->degree = degree;

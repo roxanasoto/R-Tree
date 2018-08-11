@@ -56,12 +56,12 @@ def ajax_test():
             puntos.append(x)
             puntos.append(y)
 
-        for l in puntos:
-            print l
+        # for l in puntos:
+        #     print l
 
 
-        vc_obj.rtree_insert(puntos)
-        print vc_obj.rtree_size()
+        resultado = vc_obj.rtree_insert(puntos)
+        print 'se inserto?: '+str(resultado) + ', numero de poligonos en el arbol: '+str(vc_obj.rtree_size())
 
         #print("data is " + format(datos))
         return json.dumps(datos)
