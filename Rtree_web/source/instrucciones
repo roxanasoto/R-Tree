@@ -1,1 +1,3 @@
-descomprimir mi_modulo.zip en la misma carpeta donde se encuentra.
+construir modulo extencion:
+
+g++  -I/usr/include/python2.7 -fpic  ICppToPython.cpp ../../Rtree_core/Polygon.cpp ../../Rtree_core/Point.cpp ../../Rtree_core/RTree.cpp  ../../Rtree_core/Element.cpp ../../Rtree_core/Region.cpp -shared  -lboost_python -o mi_modulo.so
