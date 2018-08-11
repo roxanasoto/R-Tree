@@ -1,8 +1,13 @@
 var perimeters = new Array();
+var id=0;
+var idsPerimeters =  new Array();
 var perimeter = new Array();
 var complete = false;
 var canvas = document.getElementById("jPolygon");
 var ctx;
+var numElement = 2;
+var element = [];
+var tree;
 //rect = {},
 drag = false;
 //funciones para insertar punto
@@ -28,9 +33,10 @@ $(document).ready(function(){
            url: url,
            //dataType: 'json',
            contentType: "application/json",
-           data: JSON.stringify(perimeter),
+           data: JSON.stringify(perimeters[0]),
            success: function(response)
            {
+
                 console.log(response);
 
            }
@@ -77,6 +83,29 @@ function getPosition(eventPoint){
     var rectPoint = canvas.getBoundingClientRect();
     var x = eventPoint.clientX - rectPoint.left; // x == the location of the click in the document - the location (relative to the left) of the canvas in the document
     var y = eventPoint.clientY - rectPoint.top; // y == the location of the click in the document - the location (relative to the top) of the canvas in the document
+    var point = new Array();
+    perimeters.push(point);
+    console.log(perimeters[id]);
+    /************/
+    var url = "/insertar";
+
+        $.ajax({
+           type: 'POST',
+           url: url,
+           //dataType: 'json',
+           contentType: "application/json",
+           data: JSON.stringify(perimeters[0]),
+           success: function(response)
+           {
+
+                console.log(response);
+
+           }
+       });
+    /***********/
+    //id=id+1;
+    point.push({'x':x,'y':y});
+    document.getElementById('coordinates').value = JSON.stringify(point);
 
     // This method will handle the coordinates and will draw them in the canvas.
     drawCoordinatesPoint(x,y);
@@ -221,6 +250,24 @@ function point_it(eventPolygon) {
         }
         draw(true);
         perimeters.push(perimeter);
+        id+1;
+        /************/
+        var url = "/insertar";
+
+        $.ajax({
+           type: 'POST',
+           url: url,
+           //dataType: 'json',
+           contentType: "application/json",
+           data: JSON.stringify(perimeters[0]),
+           success: function(response)
+           {
+
+                console.log(response);
+
+           }
+          });
+        /***********/
         perimeter = new Array();
         alert('Polygon closed');
         eventPolygon.preventDefault();
@@ -296,9 +343,43 @@ function drawRegion() {
 }
 //funciones para buscar k elementos cercanos
 
-function queryNearest(){
-}
+var funcEventPointQuery = function(eventPointQuery) {
+           console.log('event activar poligono;');
+           var k_elem = 0;
+           //var pointSize = 3;
+           //buildNearest(eventPolygon, k_elem);
+};
 
+//first click for the pòint them insert k and them click in the button
+function queryNearest(elem){
+    alert(elem.id);
+    console.log("function queryNearest");
+    canvas.addEventListener('click', funcEventPointQuery);
+    canvas.removeEventListener('click',funcEventPointQuery);
+    canvas.removeEventListener('click', funcEventPointQuery);
+}
+//test
+var k_elemQuery = 3;
+function queryNearest2(elem){
+    alert(elem.id);
+    console.log("function queryNearest");
+    canvas.removeEventListener('click',funcEventPoint);
+    canvas.removeEventListener('click', funcEventPolygon);
+    canvas.addEventListener("mousemove", function(event) {
+        buildNearest(event);
+    });
+
+}
+function buildNearest(eventPointQ){
+    var x = eventPointQ.clientX;
+    var y = eventPointQ.clientY;
+    var pointMarker= new Array();
+    pointMarker.push({'x':x,'y':y});
+    //point.push(x);
+    //point.push(y);
+    //document.getElementById('coordinates').value = JSON.stringify(x,y);
+    document.getElementById('coordinates').value = JSON.stringify(pointMarker);
+}
 
 //funciones para limpiar la ventana
 function undo(){
