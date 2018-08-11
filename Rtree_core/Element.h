@@ -12,6 +12,7 @@ class Element
         int getOid();
         Region getMbr();
         Polygon getPolygon();
+		void print();
     private:
         int oid;
         Region mbr;

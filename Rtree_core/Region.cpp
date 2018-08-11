@@ -5,7 +5,13 @@ Region::Region()
 {
     
 }
-
+Region::Region(int coordMinX, int coordMinY, int coordX, int coordY)
+{
+	this->coordMinX = coordMinX;
+	this->coordMinY = coordMinY;
+	this->coordX = coordX;
+	this->coordY = coordY;
+}
 bool operator<( Region a , Region b) {
     //Verificar si region a es menor qque region b
     //distancia euclideana

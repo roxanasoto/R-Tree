@@ -53,3 +53,12 @@ Polygon Element::getPolygon()
 {
     return poligono;
 }
+
+void Element::print()
+{
+	for (int i = 0; i < poligono.getPoints().size(); i++)
+	{
+		cout << "(" << poligono.getPoints().at(i).getX() << "," << poligono.getPoints().at(i).getY() << ") " ;
+	}
+	cout << endl;
+}

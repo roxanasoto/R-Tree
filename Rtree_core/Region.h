@@ -9,7 +9,9 @@ class Region
         int coordY;
         int coordMinX;
         int coordMinY;
+		int id;
         Region();
+		Region(int coordMinX, int coordMinY, int coordX, int coordY);
         friend bool operator<( Region a , Region b);
         
 };
