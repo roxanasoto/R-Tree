@@ -43,7 +43,7 @@ vc_obj = vc()
 ####################################################
 
 ####################insertar Poligono #####################
-@app.route('/insertar', methods =['POST'])
+@app.route('/insertar', methods =['POST','GET'])
 def ajax_test():
     if(request.method=='POST'):
         #datos = request.POST.get_list('datos[]')
@@ -57,7 +57,7 @@ def ajax_test():
             puntos.append(y)
 
         # for l in puntos:
-        #     print l
+        #print puntos
 
 
         resultado = vc_obj.rtree_insert(puntos)
@@ -86,6 +86,26 @@ def rangeQuery():
     return  render_template('ventana.html', dataResult=dataResult)
         #return render_template('ventana.html',dataResult=json.dumps(puntosOutput))
 
+####################consultar Nearest #####################
+@app.route('/nearestQuery', methods =['POST','GET'])
+def nearestQuery():
+
+    datos = request.json
+    x = datos[0]['x']
+    y = datos[0]['y']
+    k = int(datos[1])
+
+    #puntosOutput = vc_obj.rangeQuery(x,y,k)
+    puntosOutput = []
+    puntosOutput.append(1)
+    puntosOutput.append(2)
+    print puntosOutput
+    dataResult = json.dumps(puntosOutput)
+
+        #print("data is " + format(datos))
+    return  render_template('ventana.html', dataResult=dataResult)
+        #return render_template('ventana.html',dataResult=json.dumps(puntosOutput))
+#################################################################
 @app.route('/<path:path>')
 def send_images(path):
     return send_from_directory('static',path)

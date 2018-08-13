@@ -84,6 +84,7 @@ function getPosition(eventPoint){
     var x = eventPoint.clientX - rectPoint.left; // x == the location of the click in the document - the location (relative to the left) of the canvas in the document
     var y = eventPoint.clientY - rectPoint.top; // y == the location of the click in the document - the location (relative to the top) of the canvas in the document
     var point = new Array();
+    point.push({'x':x,'y':y});
     perimeters.push(point);
     console.log(perimeters[id]);
     /************/
@@ -94,7 +95,7 @@ function getPosition(eventPoint){
            url: url,
            //dataType: 'json',
            contentType: "application/json",
-           data: JSON.stringify(perimeters[0]),
+           data: JSON.stringify(perimeters[id]),
            success: function(response)
            {
 
@@ -103,8 +104,8 @@ function getPosition(eventPoint){
            }
        });
     /***********/
-    //id=id+1;
-    point.push({'x':x,'y':y});
+    id=id+1;
+
     document.getElementById('coordinates').value = JSON.stringify(point);
 
     // This method will handle the coordinates and will draw them in the canvas.
@@ -352,16 +353,16 @@ var funcEventPointQuery = function(eventPointQuery) {
 };
 
 //first click for the pòint them insert k and them click in the button
-function queryNearest(elem){
+function queryNearest0(elem){
     alert(elem.id);
     console.log("function queryNearest");
     canvas.addEventListener('click', funcEventPointQuery);
     canvas.removeEventListener('click',funcEventPointQuery);
     canvas.removeEventListener('click', funcEventPointQuery);
 }
-//test
+//NEAREST CON K YA DEFINIDO
 var k_elemQuery = 3;
-function queryNearest2(elem){
+function queryNearest(elem){
     alert(elem.id);
     console.log("function queryNearest");
     canvas.removeEventListener('click',funcEventPoint);
@@ -374,12 +375,31 @@ function queryNearest2(elem){
 function buildNearest(eventPointQ){
     var x = eventPointQ.clientX;
     var y = eventPointQ.clientY;
+    var k= 2;
     var pointMarker= new Array();
     pointMarker.push({'x':x,'y':y});
     //point.push(x);
     //point.push(y);
     //document.getElementById('coordinates').value = JSON.stringify(x,y);
     document.getElementById('coordinates').value = JSON.stringify(pointMarker);
+    pointMarker.push({'k':k});
+    var url = "/nearestQuery";
+
+    $.ajax({
+        type: 'POST',
+        url: url,
+         //dataType: 'json',
+        contentType: "application/json",
+        data: JSON.stringify(pointMarker),
+        success: function(response)
+        {
+
+            console.log(response);
+
+        }
+     });
+
+    //var idexf={{dataResult}};
 }
 
 //funciones para limpiar la ventana

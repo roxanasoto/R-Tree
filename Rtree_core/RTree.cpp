@@ -158,8 +158,12 @@ vector<Element> RTree::queryRange(int minX, int minY, int maxX, int maxY)
 */
 vector<Element>RTree::queryNearest(Polygon obj, int k)
 {
-	vector<Element> result;
-	return result;
+	vector<int> indexs_found;
+    indexs_found.push_back(1);
+    indexs_found.push_back(3);
+    //logica para calcular cercanos
+    //TODO: IMPLEMENTAR BUSQUEDA
+    return indexs_found;
 }
 
 /*
