@@ -20,19 +20,19 @@ vc_obj = vc() #este es una lista de puntos
 # for p in lista:
 #     vc_obj.insert_coordinate(p)
 #imprimir_puntos(vc_obj)p
-print "rtree inicial size: "
-print vc_obj.rtree_size()
+print ("rtree inicial size: ")
+print (vc_obj.rtree_size())
 
-print "el bool que devuleve insert es: "
-print vc_obj.rtree_insert(lista2)
-print vc_obj.rtree_insert(lista)
+print ("el bool que devuleve insert es: ")
+print (vc_obj.rtree_insert(lista2))
+print (vc_obj.rtree_insert(lista))
 #imprimir_puntos(vc_obj)
 # print vc_obj.rtree_size()
 # vc_obj.rtree_insert(lista2)
 # print vc_obj.rtree_size()
 # vc_obj.rtree_insert([3,6,5,7])
 print "rtree inicial size: "
-print vc_obj.rtree_size()
+print (vc_obj.rtree_size())
 # vc_obj.rtree_insert(lista)
 # vc_obj.rtree_insert(lista)
 # vc_obj.rtree_insert(lista)
