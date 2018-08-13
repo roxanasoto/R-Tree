@@ -7,10 +7,10 @@ Element::Element(Polygon pol)
     poligono = pol;
    //Calcular la region 
    vector<Point> points = poligono.getPoints();
-   float minX = points.at(0).getX();
-   float minY = points.at(0).getY();
-   float maxX = minX;
-   float maxY = minY;
+   int minX = points.at(0).getX();
+   int minY = points.at(0).getY();
+   int maxX = minX;
+   int maxY = minY;
    for(int i = 1; i < points.size() ; i++)
    {
        Point temp = points.at(i);
@@ -52,6 +52,16 @@ Region Element::getMbr()
 Polygon Element::getPolygon()
 {
     return poligono;
+}
+
+float Element::getAreaPol()
+{
+	//if (mbr != NULL)
+	//{
+		float axisX = mbr.coordX - mbr.coordMinX;
+		float axisY = mbr.coordY - mbr.coordMinY;
+		return axisX*axisY;
+	//}
 }
 
 void Element::print()

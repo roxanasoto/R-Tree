@@ -10,7 +10,7 @@ class Polygon
 public:
     Polygon();
     Polygon(int n); //crear un poligo de n puntos
-    void addPoint(float x,float y); //agrega punto al poligono
+    void addPoint(int x,int y); //agrega punto al poligono
     int size(); //retornna numero de puntos del poligono
     vector<Point> getPoints();
     

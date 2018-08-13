@@ -3,7 +3,10 @@ using namespace std;
 
 Region::Region()
 {
-    
+	this->coordMinX = NULL;
+	this->coordMinY = NULL;
+	this->coordX = NULL;
+	this->coordY = NULL;
 }
 Region::Region(int coordMinX, int coordMinY, int coordX, int coordY)
 {

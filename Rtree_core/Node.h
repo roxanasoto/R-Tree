@@ -14,4 +14,7 @@ class Node
 		//Node is leaf
 		vector<Element> echildren;
 
+		float getAreaNode();
+		void updateRegion();
+
 };
