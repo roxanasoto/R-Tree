@@ -53,8 +53,9 @@ Si descargo el repositorio como .zip , simplemente descomprimalo en la carpeta q
 Si esta usando Git Clone el repositorio con el comando:
 		- git clone https://github.com/roxanasoto/R-Tree.git
 Deberia tener la siguiente estructura de carpetas:
-CarpetaCreada
-    └───R-Tree
+	
+	CarpetaCreada
+    	└───R-Tree
 			
 ## 3. Instalar python 2.7.15
 La aplicacion trabaja con Python 2.7.15. Si no la tiene Instalela con el siguiente comando:
@@ -73,9 +74,9 @@ Cree el entorno virtual con el siguiente comando:
 		- virtualenv env --python=python2
 Se creara el entorno virtual “env”. Ahora deberia tener la siguiente estructura de carpetas:
 
-CarpetaCreada
-    └───R-Tree
-    └───env
+	CarpetaCreada
+    	└───R-Tree
+    	└───env
 
 ## 6. Activar el entorno virtual
 Active el entorno virtual que creo con el siguiente comando:
