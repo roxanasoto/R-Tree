@@ -114,7 +114,8 @@ Para ello ejecute el siguiente comendo:
 
 - cd R-Tree/Rtree_web/source
 
-### 8.3 Construir el modulo: Para ello ejecute el siguiente comando
+### 8.3 Construir el modulo: 
+Ya estando en la carpeta /source desde el terminal ejecute el siguiente comando:
 
 - g++ -O3 -Wall -shared -std=c++11 -undefined dynamic_lookup `python -m pybind11 --includes` pybind.cpp ../../Rtree_core/Polygon.cpp ../../Rtree_core/Point.cpp ../../Rtree_core/RTree.cpp  ../../Rtree_core/Element.cpp ../../Rtree_core/Region.cpp ../../Rtree_core/Node.cpp  -o mi_modulo`python-config --extension-suffix`
  
@@ -128,14 +129,11 @@ Con la terminal en la carpeta source (path: carpetaCreada/R-Tree/Rtree_web/sourc
 
 - python2 run.py
 
-Se levantara el servidor como se muestra en la siguiente imagen:
+Se levantara el servidor.
 
 
 ## 10. Visualizar la aplicacion
 Con el servidor ya ejecutandose, abra su navegador(Chrome de preferencia) e ingrese a la siguiente ruta:
 http://127.0.0.1:8001/rtree
 
-Debe visualizar la siguiente interfaz:
-
-![sin conexion] (https://drive.google.com/open?id=1gWyDpxOIPX7KgBrYBM8krdV94T-WNAYh)
 
