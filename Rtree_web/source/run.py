@@ -21,28 +21,17 @@ class ReusableForm(Form):
 
 @app.route('/rtree', methods=['GET', 'POST'])
 def rtree():
-    form = ReusableForm(request.form)
-
-    # print form.errors
-    if request.method == 'POST':
-        k_element=request.form['k_element']
-       # print name
-
-        if form.validate():
-            # Save the comment here.
-            flash('Insert the count element:' + k_element )
-        else:
-            flash('All the form fields are required. ')
 
 
-    return render_template('ventana.html',form=form)
+
+    return render_template('ventana.html')
 
 
 #################### Rtree #######################
 vc_obj = vc()
 ####################################################
 
-####################insertar Poligono #####################
+####insertar Poligono return regiones #######
 @app.route('/insertar', methods =['POST','GET'])
 def ajax_test():
     if(request.method=='POST'):
@@ -60,30 +49,46 @@ def ajax_test():
         #print puntos
 
 
-        resultado = vc_obj.rtree_insert(puntos)
-        print 'se inserto?: '+str(resultado) + ', numero de poligonos en el arbol: '+str(vc_obj.rtree_size())
+        resultadoRegiones = vc_obj.rtree_insert(puntos)
+        print 'se inserto?: '+str(resultadoRegiones) + ', numero de poligonos en el arbol: '+str(vc_obj.rtree_size())
+        dataResult = json.dumps(resultadoRegiones)
+        # print("data is " + format(datos))
+        regiones=[puntos[0],puntos[1],400,400,puntos[0]+50,puntos[1]+50,200,200]
+        dataResult=json.dumps(regiones)
+        return dataResult
+        # return render_template('ventana.html',dataResult=json.dumps(puntosOutput))
 
         #print("data is " + format(datos))
-        return json.dumps(datos)
+        #return json.dumps(datos)
 
-####################consultar #####################
+####################consultar Range #####################
 @app.route('/rangeQuery', methods =['POST'])
 def rangeQuery():
 
     datos = request.json
     puntosInput=[]
     for coordenada in datos:
-        x = coordenada['x']
-        y= coordenada['y']
-        puntosInput.append(x)
-        puntosInput.append(y)
+        x1 = datos[0]['x1']
+        y1 = datos[0]['y1']
+        x2 = datos[0]['x2']
+        y2 = datos[0]['y2']
+        puntosInput.append(x1)
+        puntosInput.append(y1)
+        puntosInput.append(x2)
+        puntosInput.append(y2)
 
-    puntosOutput = vc_obj.rangeQuery(puntosInput)
+    #for coordenada in datos:
+        #xmin = coordenada['x']
+        #ymin= coordenada['y']
+        #puntosInput.append(xmin)
+        #puntosInput.append(ymin)
+
+    puntosOutput = [1,2,3,4,5]
     print puntosOutput
     dataResult = json.dumps(puntosOutput)
 
         #print("data is " + format(datos))
-    return  render_template('ventana.html', dataResult=dataResult)
+    return  dataResult
         #return render_template('ventana.html',dataResult=json.dumps(puntosOutput))
 
 ####################consultar Nearest #####################
@@ -93,17 +98,15 @@ def nearestQuery():
     datos = request.json
     x = datos[0]['x']
     y = datos[0]['y']
-    k = int(datos[1])
+    k = datos[1]
 
     #puntosOutput = vc_obj.rangeQuery(x,y,k)
-    puntosOutput = []
-    puntosOutput.append(1)
-    puntosOutput.append(2)
+    puntosOutput = [1,5,7]
     print puntosOutput
     dataResult = json.dumps(puntosOutput)
 
         #print("data is " + format(datos))
-    return  render_template('ventana.html', dataResult=dataResult)
+    return  dataResult
         #return render_template('ventana.html',dataResult=json.dumps(puntosOutput))
 #################################################################
 @app.route('/<path:path>')

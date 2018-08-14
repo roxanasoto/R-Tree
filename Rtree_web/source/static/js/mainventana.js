@@ -1,3 +1,4 @@
+/*Declaración de variables*/
 var perimeters = new Array();
 var id=0;
 var idsPerimeters =  new Array();
@@ -8,18 +9,13 @@ var ctx;
 var numElement = 2;
 var element = [];
 var tree;
-//rect = {},
+var Image;
+rect = {},
 drag = false;
-//funciones para insertar punto
-//document.addEventListener("keydown",function(ev){
-    //console.log(ev.keyCode);
-    //ev.preventDefault();
-//});
-////////////////////// Insertar poligono nuevo ///////////////////////
+
+
 function test_func(){
-
 }
-
 $(document).ready(function(){
     console.log("codigo facilito");
     $('#b_ajax').click(function(){
@@ -43,41 +39,62 @@ $(document).ready(function(){
        });
     });
 });
-/////////////////////////////range query//////////////////////////////////////////
-function consultarRegion()
-{
-    var url = "/rangeQuery";
 
-    $.ajax({
-            type: 'POST',
-            url: url,
-            contentType: 'application/json',
-            data: JSON.stringify(perimeter),
-            success: function(response) {
-                console.log(response);
-            }
-    });
+//funciones para limpiar la ventana
+function clear_canvas(){
+    ctx = undefined;
+    perimeter = new Array();
+    complete = false;
+    document.getElementById('coordinates').value = '';
+    start();
+}
+function start(with_draw) {
+    var img = new Image();
+    img.src = canvas.getAttribute('data-imgsrc');
+
+    img.onload = function(){
+        ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        Image=ctx.getImageData(0, 0, canvas.width, canvas.height);
+        if(with_draw == true){
+            draw(false);
+        }
+    }
+}
+//funciones insert point
+function drawRegions(list) {
+
+    ctx.fillStyle = '(0, 0, 255, 0.25)';
+    ctx.strokeStyle = 'black';
+    var idR=0;
+    for(var i= 0;i<list.length;i=i+4){
+
+        ctx.beginPath();
+        ctx.strokeStyle = 'black';
+        var jaja=list[i];
+        jaja=list[i+1];
+        jaja=list[i+2];
+        jaja=list[i+3];
+        ctx.strokeRect(list[i],list[i+1],list[i+2],list[i+3]);
+        ctx.font = "12px Arial";
+        ctx.strokeText("R"+idR.toString(),list[i],list[i+1]);
+        idR=idR +1;
+        ctx.closePath();
+    }
 
 
 }
-/////////////////////////////////////////////////////////////////////////
+function drawCoordinatesPoint(x,y){
+    var pointSize = 3; // Change according to the size of the point.
+    //var ctx = document.getElementById("canvas").getContext("2d");
+    //ctx=canvas.getContext("2d");
 
-var funcEventPoint = function(eventPoint) {
-    console.log('evento activar punto');
-    //var pointSize = 3;
-    getPosition(eventPoint);
-};
-var funcEventPolygon = function(eventPolygon) {
-           console.log('event activar poligono;');
-           //var pointSize = 3;
-           point_it(eventPolygon);
-};
-function insertPoint(elem){
-    alert(elem.id);
-    canvas.addEventListener('click',funcEventPoint );
-    canvas.removeEventListener('click', funcEventPolygon);
+    ctx.fillStyle = "#ff2626"; // Red color
+
+    ctx.beginPath(); //Start path
+    ctx.arc(x, y, pointSize, 0, Math.PI * 2, true); // Draw a point using the arc function of the canvas with a point structure.
+    ctx.fill(); // Close the path and fill.
 }
-
 function getPosition(eventPoint){
     console.log('gdibujando punto');
     var rectPoint = canvas.getBoundingClientRect();
@@ -87,6 +104,13 @@ function getPosition(eventPoint){
     point.push({'x':x,'y':y});
     perimeters.push(point);
     console.log(perimeters[id]);
+    ctx.putImageData(Image, 0, 0);
+
+    document.getElementById('coordinates').value = JSON.stringify(point);
+
+    // This method will handle the coordinates and will draw them in the canvas.
+    drawCoordinatesPoint(x,y);
+    Image=ctx.getImageData(0, 0, canvas.width, canvas.height);
     /************/
     var url = "/insertar";
 
@@ -100,64 +124,25 @@ function getPosition(eventPoint){
            {
 
                 console.log(response);
-
+                var list=JSON.parse(response);
+                drawRegions(list);
            }
        });
     /***********/
     id=id+1;
-
-    document.getElementById('coordinates').value = JSON.stringify(point);
-
-    // This method will handle the coordinates and will draw them in the canvas.
-    drawCoordinatesPoint(x,y);
 }
-
-function drawCoordinatesPoint(x,y){
-    var pointSize = 3; // Change according to the size of the point.
-    //var ctx = document.getElementById("canvas").getContext("2d");
-    //ctx=canvas.getContext("2d");
-
-    ctx.fillStyle = "#ff2626"; // Red color
-
-    ctx.beginPath(); //Start path
-    ctx.arc(x, y, pointSize, 0, Math.PI * 2, true); // Draw a point using the arc function of the canvas with a point structure.
-    ctx.fill(); // Close the path and fill.
-}
-
-//funciones para insertar poligono
-var funcEventPolygon = function(eventPolygon) {
-           console.log('event activar poligono;');
-           //var pointSize = 3;
-           point_it(eventPolygon);
+var funcEventPoint = function(eventPoint) {
+    console.log('evento activar punto');
+    //var pointSize = 3;
+    getPosition(eventPoint);
 };
-
-function insertPolygon(elem){
+function insertPoint(elem){
     alert(elem.id);
-    console.log('function insertPolygon;');
-    canvas.addEventListener('click',funcEventPolygon );
-    canvas.removeEventListener('click', funcEventPoint);
+    ctx.putImageData(Image, 0, 0);
+    canvas.addEventListener('click',funcEventPoint );
+    canvas.removeEventListener('click', funcEventPolygon);
 }
-
-function line_intersects(p0, p1, p2, p3) {
-    console.log('create line_intersects for each polygon;');
-    var s1_x, s1_y, s2_x, s2_y;
-    s1_x = p1['x'] - p0['x'];
-    s1_y = p1['y'] - p0['y'];
-    s2_x = p3['x'] - p2['x'];
-    s2_y = p3['y'] - p2['y'];
-
-    var s, t;
-    s = (-s1_y * (p0['x'] - p2['x']) + s1_x * (p0['y'] - p2['y'])) / (-s2_x * s1_y + s1_x * s2_y);
-    t = ( s2_x * (p0['y'] - p2['y']) - s2_y * (p0['x'] - p2['x'])) / (-s2_x * s1_y + s1_x * s2_y);
-
-    if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
-    {
-        // Collision detected
-        return true;
-    }
-    return false; // No collision
-}
-
+//funciones insert Poligono
 function point(x, y){
 
     ctx.fillStyle="red";
@@ -168,8 +153,6 @@ function point(x, y){
     ctx.fillRect(x-2,y-2,4,4);
     ctx.moveTo(x,y);
 }
-
-
 function draw(end){
     ctx.beginPath();
     //ctx.lineWidth = 1;
@@ -205,7 +188,25 @@ function draw(end){
         document.getElementById('coordinates').value = JSON.stringify(perimeter);
     }
 }
+function line_intersects(p0, p1, p2, p3) {
+    console.log('create line_intersects for each polygon;');
+    var s1_x, s1_y, s2_x, s2_y;
+    s1_x = p1['x'] - p0['x'];
+    s1_y = p1['y'] - p0['y'];
+    s2_x = p3['x'] - p2['x'];
+    s2_y = p3['y'] - p2['y'];
 
+    var s, t;
+    s = (-s1_y * (p0['x'] - p2['x']) + s1_x * (p0['y'] - p2['y'])) / (-s2_x * s1_y + s1_x * s2_y);
+    t = ( s2_x * (p0['y'] - p2['y']) - s2_y * (p0['x'] - p2['x'])) / (-s2_x * s1_y + s1_x * s2_y);
+
+    if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
+    {
+        // Collision detected
+        return true;
+    }
+    return false; // No collision
+}
 function check_intersect(x,y){
     if(perimeter.length < 4){
         return false;
@@ -233,9 +234,8 @@ function check_intersect(x,y){
     }
     return false;
 }
-
 function point_it(eventPolygon) {
- 
+
     var rectPolygon, x, y;
 
     if(eventPolygon.ctrlKey || eventPolygon.which === 3 || eventPolygon.button === 2){
@@ -251,7 +251,8 @@ function point_it(eventPolygon) {
         }
         draw(true);
         perimeters.push(perimeter);
-        id+1;
+        Image=ctx.getImageData(0, 0, canvas.width, canvas.height);
+
         /************/
         var url = "/insertar";
 
@@ -260,20 +261,24 @@ function point_it(eventPolygon) {
            url: url,
            //dataType: 'json',
            contentType: "application/json",
-           data: JSON.stringify(perimeters[0]),
+           data: JSON.stringify(perimeters[id]),
            success: function(response)
            {
 
                 console.log(response);
+                var list=JSON.parse(response);
+                drawRegions(list);
 
            }
           });
+        id+1;
+
         /***********/
         perimeter = new Array();
         alert('Polygon closed');
         eventPolygon.preventDefault();
         return false;
-    } 
+    }
     else {
         rectPolygon = canvas.getBoundingClientRect();
         x = eventPolygon.clientX - rectPolygon.left;
@@ -291,40 +296,55 @@ function point_it(eventPolygon) {
         return false;
     }
 }
+var funcEventPolygon = function(eventPolygon) {
+           console.log('event activar poligono;');
 
-function start(with_draw) {
-    var img = new Image();
-    img.src = canvas.getAttribute('data-imgsrc');
+           //var pointSize = 3;
+           point_it(eventPolygon);
+};
+function insertPolygon(elem){
+    alert(elem.id);
+    console.log('function insertPolygon;');
+    ctx.putImageData(Image, 0, 0);
+    canvas.addEventListener('click',funcEventPolygon );
+    canvas.removeEventListener('click', funcEventPoint);
 
-    img.onload = function(){
-        ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        if(with_draw == true){
-            draw(false);
+}
+//funciones query Range
+function drawRegion() {
+    ctx.putImageData(Image, 0, 0);
+    ctx.fillStyle = 'rgba(0, 0, 255, 0.25)';
+    ctx.strokeStyle = 'green';
+    var x1 = rect.startX;
+    var y1 = rect.startY;
+    var x2 = rect.w;
+    var y2 = rect.h;
+    ctx.strokeRect(rect.startX, rect.startY, rect.w, rect.h);
+    var pointsRectangle= new Array();
+    pointsRectangle.push({'x1':x1,'y1':y1,'x2':x2,'y2':y2 });
+    document.getElementById('coordinates').value = JSON.stringify(pointsRectangle);
+    //creo que esto no deberia ir
+    //ctx.putImageData(Image, 0, 0);
+    //
+    var url = "/rangeQuery";
+
+    $.ajax({
+        type: 'POST',
+        url: url,
+         //dataType: 'json',
+        contentType: "application/json",
+        data: JSON.stringify(pointsRectangle),
+        success: function(response)
+        {
+
+            console.log(response);
+            var list=JSON.parse(response);
+
+            reDrawElement(list);
+
+
         }
-    }
-}
-//funciones para buscar elementos dentro de la region
-function queryRange(){
-    canvas.removeEventListener('click', funcEvent);
-    console.log('desactivo?');
-    //document.getElementById("punto").disabled = true;
-    initRange();
-}
-function initRange() {
-  canvas.addEventListener('mousedown', mouseDown, false);
-  canvas.addEventListener('mouseup', mouseUp, false);
-  canvas.addEventListener('mousemove', mouseMove, false);
-}
-  var Image;
-function mouseDown(e) {
-  rect.startX = e.pageX - this.offsetLeft;
-  rect.startY = e.pageY - this.offsetTop;
-Image=ctx.getImageData(0, 0, canvas.width, canvas.height);
-  drag = true;
-}
-function mouseUp() {
-  drag = false;
+     });
 }
 function mouseMove(e) {
   if (drag) {
@@ -336,46 +356,72 @@ function mouseMove(e) {
 
   }
 }
-function drawRegion() {
-    ctx.putImageData(Image, 0, 0);
-    ctx.fillStyle = 'rgba(0, 0, 255, 0.25)';
-    ctx.strokeStyle = 'green';
-    ctx.strokeRect(rect.startX, rect.startY, rect.w, rect.h);
-
+function mouseUp() {
+  drag = false;
 }
-//funciones para buscar k elementos cercanos
-
-var funcEventPointQuery = function(eventPointQuery) {
-           console.log('event activar poligono;');
-           var k_elem = 0;
-           //var pointSize = 3;
-           //buildNearest(eventPolygon, k_elem);
-};
-
-//first click for the pòint them insert k and them click in the button
-function queryNearest0(elem){
-    alert(elem.id);
-    console.log("function queryNearest");
-    canvas.addEventListener('click', funcEventPointQuery);
-    canvas.removeEventListener('click',funcEventPointQuery);
-    canvas.removeEventListener('click', funcEventPointQuery);
+function mouseDown(e) {
+  rect.startX = e.pageX - this.offsetLeft;
+  rect.startY = e.pageY - this.offsetTop;
+  Image=ctx.getImageData(0, 0, canvas.width, canvas.height);
+  drag = true;
 }
-//NEAREST CON K YA DEFINIDO
-var k_elemQuery = 3;
-function queryNearest(elem){
-    alert(elem.id);
-    console.log("function queryNearest");
-    canvas.removeEventListener('click',funcEventPoint);
+function initRange() {
+  canvas.addEventListener('mousedown', mouseDown, false);
+  canvas.addEventListener('mouseup', mouseUp, false);
+  canvas.addEventListener('mousemove', mouseMove, false);
+}
+function queryRange(){
+    alert("You activated the function QUERY NEAREST");
+    console.log('function queryRange');
+    canvas.removeEventListener('click', funcEventPoint);
     canvas.removeEventListener('click', funcEventPolygon);
-    canvas.addEventListener("mousemove", function(event) {
-        buildNearest(event);
-    });
 
+    //document.getElementById("punto").disabled = true;
+    initRange();
+}
+//funciones query Nearest
+function reDrawElement(list){
+    for(var i=0;i<list.length;i++){
+        if(perimeters[list[i]].length <=2){
+            var pointSize = 3*2; // Change according to the size of the point.
+
+            ctx.fillStyle = "blue"; // Red color
+            ctx.beginPath(); //Start path
+            ctx.arc(perimeters[list[i]][0]['x'],perimeters[list[i]][0]['y'] , pointSize, 0, Math.PI * 2, true); // Draw a point using the arc function of the canvas with a point structure.
+            ctx.fill(); // Close the path and fill.
+            ctx.closePath();
+        }
+        else{
+
+             ctx.beginPath();
+             for(var j=0; j<perimeters[list[i]].length;j++){
+                if(j==0){
+                    ctx.moveTo(perimeters[list[i]][j]['x'],perimeters[list[i]][j]['y']);
+                    //point(perimeters[list[i]][j]['x'],perimeters[list[i]][j]['y']);
+                } else {
+                    ctx.lineTo(perimeters[list[i]][j]['x'],perimeters[list[i]][j]['y']);
+                    //point(perimeters[list[i]][j]['x'],perimeters[list[i]][j]['y']);
+                }
+             }
+
+
+            ctx.lineTo(perimeters[list[i]][0]['x'],perimeters[list[i]][0]['y']);
+
+            ctx.fillStyle = 'blue';//colour for relleno of polygon
+            ctx.fill();
+            ctx.strokeStyle = 'blue';
+            ctx.stroke();
+            ctx.closePath();
+
+        }
+    }
 }
 function buildNearest(eventPointQ){
+
     var x = eventPointQ.clientX;
     var y = eventPointQ.clientY;
-    var k= 2;
+    var k=Number(document.getElementById("myNumberK").value);
+    console.log(k);
     var pointMarker= new Array();
     pointMarker.push({'x':x,'y':y});
     //point.push(x);
@@ -383,6 +429,9 @@ function buildNearest(eventPointQ){
     //document.getElementById('coordinates').value = JSON.stringify(x,y);
     document.getElementById('coordinates').value = JSON.stringify(pointMarker);
     pointMarker.push({'k':k});
+
+    ctx.putImageData(Image, 0, 0);
+
     var url = "/nearestQuery";
 
     $.ajax({
@@ -395,25 +444,27 @@ function buildNearest(eventPointQ){
         {
 
             console.log(response);
+            var list=JSON.parse(response);
+
+            reDrawElement(list);
+
 
         }
      });
 
     //var idexf={{dataResult}};
 }
+function queryNearest(elem){
 
-//funciones para limpiar la ventana
-function undo(){
-    ctx = undefined;
-    perimeter.pop();
-    complete = false;
-    start(true);
-}
+    console.log("function queryNearest");
 
-function clear_canvas(){
-    ctx = undefined;
-    perimeter = new Array();
-    complete = false;
-    document.getElementById('coordinates').value = '';
-    start();
+    canvas.removeEventListener('click',funcEventPoint);
+    canvas.removeEventListener('click', funcEventPolygon);
+    //canvas.removeEventListener('click' funcQueryRange);
+    canvas.addEventListener("mousemove", function(event) {
+        ctx.putImageData(Image, 0, 0);
+        buildNearest(event);
+    });
+//miau...suerte
+
 }

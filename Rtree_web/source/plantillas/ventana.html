@@ -22,18 +22,11 @@
                 <br/><button id="i_polygon" type="button" onclick="insertPolygon(this)">Polygon</button><font size="2">Press Left Click</strong> to draw a point and <strong>CTRL+Click</strong> or <strong>Right Click</strong> to close the polygon.</font>
                 <button id="b_ajax" type="button"> Ajax test</button>
             </div>
+
             <div>
-                <form action="" method="post">
-                {{ form.csrf }}
-                    <p><strong>Query</strong></p>
-                    <button id="q_range" type="button" onclick="queryRange()">Range</button><font size="2">Press <strong>Left Click</strong> to draw a range.</font>
-                    <div class="input text">
-                        {{ form.k_element.label }} {{ form.k_element }}<button id="q_nearest0" type="button" onclick="queryNearest0()">Nearest</button><font size="2">Press <strong>Left Click</strong> to show the element more nearest.</font>
-                    </div>
-                </form>
-            </div>
-            <div>
-                 <button id="q_nearest" type="button" onclick="queryNearest(this)">NEAREST</button>
+                <button id="q_range" type="button" onclick="queryRange()">Range</button><font size="2">Press <strong>Left Click</strong> to draw a range.</font>
+                <input type="number" id="myNumberK" value="2">
+                <button id="q_nearest" type="button" onclick="queryNearest(this)">NEAREST</button>
             </div>
             <div>
                 <p><strong>Coordinates:</strong></p>
@@ -43,7 +36,6 @@
                 <p>Go to <a href="https://www.youtube.com/watch?v=ZxfR_94zuno&t=1s">project video</a> - <a href="https://github.com/roxanasoto/R-Tree">source code</a></p>
             </div>
             <div>
-                <button onclick="undo()">Undo</button>
                 <button onclick="clear_canvas()">Clear</button>
 
             </div>
