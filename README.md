@@ -26,8 +26,7 @@ REQUERIMIENTOS:
 PASOS DE INSTALACION:
 ---------------------
 
-1.INSTALAR  HOMEBREW
---------------------
+## 1.INSTALAR  HOMEBREW
 
 Para instalar las depencias necesarias para ejecutar la aplicacion se hara uso de brew, si no tiene instalado brew en su computador siga las siguientes instrucciones:
 
@@ -36,8 +35,7 @@ $/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/insta
 
 Siga las instrucciones que se muestran en la terminal.
 
-2.OBTENER COPIA LOCAL DEL CODIGO FUENTE
----------------------------------------
+## 2.OBTENER COPIA LOCAL DEL CODIGO FUENTE
 
 Puede obtener la copia local de la aplicacion de dos formas:
 
