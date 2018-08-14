@@ -125,6 +125,7 @@ function getPosition(eventPoint){
 
                 console.log(response);
                 var list=JSON.parse(response);
+                console.log(list);
                 drawRegions(list);
            }
        });
