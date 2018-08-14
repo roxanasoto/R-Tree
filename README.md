@@ -1,20 +1,20 @@
 # R-Tree
 Demo online que muestra el funcionamiento de un R-Tree
-***Integrantes***
+# Integrantes:
 1. Choqueluque Roman David
 2. Lima Tinco Lizbeth
 3. Soto Barrera Roxana
 
-MAC OSX
+# MAC OSX
 La siguiente instalacion fue comprobada en OSX Sierra 10.12
-REQUERIMIENTOS:
-Brew
-Python 2.7.15
-Pip
-Virtualenv
+# REQUERIMIENTOS:
+- Brew
+- Python 2.7.15
+- Pip
+- Virtualenv
 
-PASOS DE INSTALACION:
-INSTALAR  HOMEBREW
+# PASOS DE INSTALACION:
+# 1.INSTALAR  HOMEBREW
 Para instalar las depencias necesarias para ejecutar la aplicacion se hara uso de brew, si no tiene instalado brew en su computador siga las siguientes instrucciones:
 
 Instalar brew: Abra una terminal (consola) y pegue el siguiente comando:
