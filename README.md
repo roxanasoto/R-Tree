@@ -137,5 +137,5 @@ http://127.0.0.1:8001/rtree
 
 Debe visualizar la siguiente interfaz:
 
-[sin conexion](https://drive.google.com/open?id=1gWyDpxOIPX7KgBrYBM8krdV94T-WNAYh)
+![sin conexion](https://drive.google.com/open?id=1gWyDpxOIPX7KgBrYBM8krdV94T-WNAYh)
 
