@@ -9,7 +9,8 @@ var ctx;
 var numElement = 2;
 var element = [];
 var tree;
-var Image;
+var ImageGlobal;
+var ImageElem;
 rect = {},
 drag = false;
 
@@ -55,7 +56,8 @@ function start(with_draw) {
     img.onload = function(){
         ctx = canvas.getContext("2d");
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        Image=ctx.getImageData(0, 0, canvas.width, canvas.height);
+        ImageGlobal=ctx.getImageData(0, 0, canvas.width, canvas.height);//Image for draw
+        ImageElem=ctx.getImageData(0, 0, canvas.width, canvas.height); //Image for elements
         if(with_draw == true){
             draw(false);
         }
@@ -104,13 +106,13 @@ function getPosition(eventPoint){
     point.push({'x':x,'y':y});
     perimeters.push(point);
     console.log(perimeters[id]);
-    ctx.putImageData(Image, 0, 0);
+    ctx.putImageData(ImageElem, 0, 0);
 
     document.getElementById('coordinates').value = JSON.stringify(point);
 
     // This method will handle the coordinates and will draw them in the canvas.
     drawCoordinatesPoint(x,y);
-    Image=ctx.getImageData(0, 0, canvas.width, canvas.height);
+    ImageElem=ctx.getImageData(0, 0, canvas.width, canvas.height);
     /************/
     var url = "/insertar";
 
@@ -128,6 +130,7 @@ function getPosition(eventPoint){
                 drawRegions(list);
            }
        });
+    ImageGlobal=ctx.getImageData(0, 0, canvas.width, canvas.height);
     /***********/
     id=id+1;
 }
@@ -138,7 +141,7 @@ var funcEventPoint = function(eventPoint) {
 };
 function insertPoint(elem){
     alert(elem.id);
-    ctx.putImageData(Image, 0, 0);
+    ctx.putImageData(ImageElem, 0, 0);
     canvas.addEventListener('click',funcEventPoint );
     canvas.removeEventListener('click', funcEventPolygon);
     initRemoveRange();
@@ -251,10 +254,10 @@ function point_it(eventPolygon) {
             alert('The line you are drowing intersect another line');
             return false;
         }
-        ctx.putImageData(Image, 0, 0);
+        ctx.putImageData(ImageElem, 0, 0);
         draw(true);
         perimeters.push(perimeter);
-        Image=ctx.getImageData(0, 0, canvas.width, canvas.height);
+        ImageElem=ctx.getImageData(0, 0, canvas.width, canvas.height);
 
         /************/
         var url = "/insertar";
@@ -275,7 +278,7 @@ function point_it(eventPolygon) {
            }
           });
         id=id+1;
-
+        ImageGlobal=ctx.getImageData(0, 0, canvas.width, canvas.height);
 
         /***********/
         perimeter = new Array();
@@ -309,7 +312,7 @@ var funcEventPolygon = function(eventPolygon) {
 function insertPolygon(elem){
     alert(elem.id);
     console.log('function insertPolygon;');
-    ctx.putImageData(Image, 0, 0);
+    ctx.putImageData(ImageElem, 0, 0);
     canvas.addEventListener('click',funcEventPolygon );
     canvas.removeEventListener('click', funcEventPoint);
     initRemoveRange();
@@ -317,7 +320,7 @@ function insertPolygon(elem){
 }
 //funciones query Range
 function drawRegion() {
-    ctx.putImageData(Image, 0, 0);
+    ctx.putImageData(ImageGlobal, 0, 0);
     ctx.fillStyle = 'rgba(0, 0, 255, 0.25)';
     ctx.strokeStyle = 'green';
     var x1 = rect.startX;
@@ -361,13 +364,13 @@ function mouseMove(e) {
 
   }
 }
-function mouseUp() {
+function mouseUp(){
   drag = false;
 }
 function mouseDown(e) {
   rect.startX = e.pageX - this.offsetLeft;
   rect.startY = e.pageY - this.offsetTop;
-  Image=ctx.getImageData(0, 0, canvas.width, canvas.height);
+ // Image=ctx.getImageData(0, 0, canvas.width, canvas.height);
   drag = true;
 }
 
@@ -441,7 +444,7 @@ function buildNearest(eventPointQ){
     document.getElementById('coordinates').value = JSON.stringify(pointMarker);
     pointMarker.push({'k':k});
 
-    ctx.putImageData(Image, 0, 0);
+    ctx.putImageData(ImageGlobal, 0, 0);
 
     var url = "/nearestQuery";
 
@@ -466,7 +469,7 @@ function buildNearest(eventPointQ){
     //var idexf={{dataResult}};
 }
 var funcNearestQuery=function(event){
-ctx.putImageData(Image, 0, 0);
+ctx.putImageData(ImageGlobal, 0, 0);
         buildNearest(event);
 }
 function queryNearest(elem){
