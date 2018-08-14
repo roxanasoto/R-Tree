@@ -141,6 +141,8 @@ function insertPoint(elem){
     ctx.putImageData(Image, 0, 0);
     canvas.addEventListener('click',funcEventPoint );
     canvas.removeEventListener('click', funcEventPolygon);
+    initRemoveRange();
+    canvas.removeEventListener("mousemove", funcNearestQuery)
 }
 //funciones insert Poligono
 function point(x, y){
@@ -249,6 +251,7 @@ function point_it(eventPolygon) {
             alert('The line you are drowing intersect another line');
             return false;
         }
+        ctx.putImageData(Image, 0, 0);
         draw(true);
         perimeters.push(perimeter);
         Image=ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -271,7 +274,8 @@ function point_it(eventPolygon) {
 
            }
           });
-        id+1;
+        id=id+1;
+
 
         /***********/
         perimeter = new Array();
@@ -308,7 +312,8 @@ function insertPolygon(elem){
     ctx.putImageData(Image, 0, 0);
     canvas.addEventListener('click',funcEventPolygon );
     canvas.removeEventListener('click', funcEventPoint);
-
+    initRemoveRange();
+    canvas.removeEventListener("mousemove", funcNearestQuery)
 }
 //funciones query Range
 function drawRegion() {
@@ -365,17 +370,23 @@ function mouseDown(e) {
   Image=ctx.getImageData(0, 0, canvas.width, canvas.height);
   drag = true;
 }
+
 function initRange() {
   canvas.addEventListener('mousedown', mouseDown, false);
   canvas.addEventListener('mouseup', mouseUp, false);
   canvas.addEventListener('mousemove', mouseMove, false);
+}
+function initRemoveRange() {
+  canvas.removeEventListener('mousedown', mouseDown, false);
+  canvas.removeEventListener('mouseup', mouseUp, false);
+  canvas.removeEventListener('mousemove', mouseMove, false);
 }
 function queryRange(){
     alert("You activated the function QUERY NEAREST");
     console.log('function queryRange');
     canvas.removeEventListener('click', funcEventPoint);
     canvas.removeEventListener('click', funcEventPolygon);
-
+    canvas.removeEventListener("mousemove", funcNearestQuery);
     //document.getElementById("punto").disabled = true;
     initRange();
 }
@@ -454,17 +465,18 @@ function buildNearest(eventPointQ){
 
     //var idexf={{dataResult}};
 }
+var funcNearestQuery=function(event){
+ctx.putImageData(Image, 0, 0);
+        buildNearest(event);
+}
 function queryNearest(elem){
 
     console.log("function queryNearest");
 
     canvas.removeEventListener('click',funcEventPoint);
     canvas.removeEventListener('click', funcEventPolygon);
-    //canvas.removeEventListener('click' funcQueryRange);
-    canvas.addEventListener("mousemove", function(event) {
-        ctx.putImageData(Image, 0, 0);
-        buildNearest(event);
-    });
+    initRemoveRange();
+    canvas.addEventListener("mousemove", funcNearestQuery)
 //miau...suerte
 
 }

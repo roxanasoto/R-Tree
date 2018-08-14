@@ -67,22 +67,22 @@ def rangeQuery():
 
     datos = request.json
     puntosInput=[]
-    for coordenada in datos:
-        x1 = datos[0]['x1']
-        y1 = datos[0]['y1']
-        x2 = datos[0]['x2']
-        y2 = datos[0]['y2']
-        puntosInput.append(x1)
-        puntosInput.append(y1)
-        puntosInput.append(x2)
-        puntosInput.append(y2)
+    #for coordenada in datos:
+    x1 = datos[0]['x1']
+    y1 = datos[0]['y1']
+    x2 = datos[0]['x2']
+    y2 = datos[0]['y2']
+    puntosInput.append(x1)
+    puntosInput.append(y1)
+    puntosInput.append(x2)
+    puntosInput.append(y2)
 
     #for coordenada in datos:
         #xmin = coordenada['x']
         #ymin= coordenada['y']
         #puntosInput.append(xmin)
         #puntosInput.append(ymin)
-
+    #puntosOutput = vc_obj.rtree_rangequery(puntos)
     puntosOutput = [1,2,3,4,5]
     print puntosOutput
     dataResult = json.dumps(puntosOutput)
