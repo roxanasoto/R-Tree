@@ -23,6 +23,10 @@ RTree::RTree(int max, int min)
 	}
 }
 
+int RTree::getCountElements(){
+	return this->countElem;
+}
+
 /*
 Insertar un nuevo elemento
 */

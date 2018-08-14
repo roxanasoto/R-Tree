@@ -36,5 +36,6 @@ class RTree
 		void printTree();
 		void deleteTree();
 		void deleteNode(Node *node);
+		int getCountElements();
 
 };
