@@ -22,9 +22,7 @@ RTree::RTree(int max, int min)
 		throw runtime_error("min debe ser mayor a cero y menos a max/2");
 	}
 }
-int RTree::getCountElements(){
-	return this->countElem;
-}
+
 /*
 Insertar un nuevo elemento
 */
@@ -598,7 +596,27 @@ Node*  RTree::searchNode(Node *node, Region mbrObj)
 	return(searchNode(nodeResult, mbrObj));
 }
 
+void RTree::deleteTree()
+{
+	
+	deleteNode(root);
+	countRegion = 0;
+	countElem = 0;
+	root = new Node();
+	root->isLeaf = true;
+	root->parent = NULL;
+}
 
+void RTree::deleteNode(Node *node)
+{
+	if (node == NULL)
+		return;
+	for (Node* child : root->children)
+	{
+		deleteNode(child);
+	}
+	delete node;
+}
 
 void RTree::printTree()
 {

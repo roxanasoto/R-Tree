@@ -34,6 +34,7 @@ class RTree
 		vector<int> queryRange(int minX, int minY, int maxX, int maxY);
         vector<Element> queryNearest(Polygon obj, int k);
 		void printTree();
-		int getCountElements();
+		void deleteTree();
+		void deleteNode(Node *node);
 
 };
