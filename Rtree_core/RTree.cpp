@@ -10,6 +10,7 @@ RTree::RTree(int max, int min)
 		this->min = min;
 		this->max = max;
 		countRegion = 0; 
+		countElem = 0;
 		//Inicializamos la raiz como nodo hoja
 		root = new Node();
 		root->isLeaf = true;
@@ -25,10 +26,11 @@ RTree::RTree(int max, int min)
 /*
 Insertar un nuevo elemento
 */
-bool RTree::insertElement(Polygon pol)
+vector<float> RTree::insertElement(Polygon pol)
 {
-	bool state = true;
+	//bool state = true;
 	Element obj(pol);
+	obj.setOid(++countElem);
 	if (root->isLeaf)
 	{
 		root->echildren.push_back(obj);
@@ -48,10 +50,12 @@ bool RTree::insertElement(Polygon pol)
 		else
 		{
 			//El nodo devuelto es una region
-			state = false;
+			//state = false;
+			return getPointRegion();
 		}
 	}
-	return state;
+	//return state;
+	return getPointRegion();
 }
 
 
@@ -216,7 +220,8 @@ void  RTree::splitNode(Node* node)
 			areaNodeLeft->id = ++countRegion;
 			regionLeft->region = areaNodeLeft;
 			regionLeft->echildren = nodeLeft;
-
+			
+			listRegion.push_back(*areaNodeLeft);
 
 			//Node region - left / rigth
 			Node *regionRight = new Node();
@@ -225,7 +230,10 @@ void  RTree::splitNode(Node* node)
 			regionRight->region = areaNodeRigth;
 			regionRight->echildren = nodeRigth;
 
-			regionLeft->parent = node;
+			listRegion.push_back(*areaNodeRigth);
+
+
+			regionLeft->parent = node;//regionLeft->parent = node;
 			regionRight->parent = node;
 			node->children.push_back(regionLeft);
 			node->children.push_back(regionRight);
@@ -233,13 +241,6 @@ void  RTree::splitNode(Node* node)
 		}
 		else
 		{
-			//
-			//node (sigue siendo nodeleaf pero toma como hijos a nodeleft) sigue No se modifica el rparent
-			//Node *regionLeft = new Node();
-			//regionLeft->isLeaf = true;
-			//areaNodeLeft->id = ++countRegion;
-			//regionLeft->region = areaNodeLeft;
-			//regionLeft->echildren = nodeLeft;
 
 			//node = regionLeft;
 			node->isLeaf = true;
@@ -248,7 +249,7 @@ void  RTree::splitNode(Node* node)
 			node->region = areaNodeLeft;
 			node->echildren = nodeLeft;
 			//node->echildren
-
+			listRegion.push_back(*areaNodeLeft);
 
 			///Para nodeRight se crea una region la cual se insert como padre  de nodeleft y tio de node
 		
@@ -257,6 +258,10 @@ void  RTree::splitNode(Node* node)
 			areaNodeRigth->id = ++countRegion;
 			regionRight->region = areaNodeRigth;
 			regionRight->echildren = nodeRigth;
+			regionRight->parent = node;
+
+			listRegion.push_back(*areaNodeRigth);
+
 
 			node->parent->children.push_back(regionRight);
 			if (node->parent->children.size() > max)
@@ -366,6 +371,7 @@ void RTree::splitNodeInterno(Node *node)
 		regionLeft->region = areaNodeLeft;
 		regionLeft->children = nodeLeft;
 
+		listRegion.push_back(*areaNodeLeft);
 
 		//Node region - left / rigth
 		Node *regionRight = new Node();
@@ -373,6 +379,8 @@ void RTree::splitNodeInterno(Node *node)
 		areaNodeRigth->id = ++countRegion;
 		regionRight->region = areaNodeRigth;
 		regionRight->children = nodeRigth;
+
+		listRegion.push_back(*areaNodeRigth);
 
 		regionLeft->parent = node;
 		regionRight->parent = node;
@@ -392,6 +400,7 @@ void RTree::splitNodeInterno(Node *node)
 		node->region = areaNodeLeft;
 		node->children = nodeLeft;
 		//node->echildren
+		listRegion.push_back(*areaNodeLeft);
 
 
 		///Para nodeRight se crea una region la cual se insert como padre  de nodeleft y tio de node
@@ -401,6 +410,10 @@ void RTree::splitNodeInterno(Node *node)
 		areaNodeRigth->id = ++countRegion;
 		regionRight->region = areaNodeRigth;
 		regionRight->children = nodeRigth;
+		regionRight->parent = node->parent;
+
+		listRegion.push_back(*areaNodeRigth);
+
 
 		node->parent->children.push_back(regionRight);
 		if (node->parent->children.size() > max)
@@ -411,8 +424,39 @@ void RTree::splitNodeInterno(Node *node)
 	}
 }
 
+/*
+	convert region in parray point
+*/
+vector<float> RTree::getPointRegion()
+{
+	vector<float> listPoint;
+	//Ordenar listRegion
+	int  j;
+	Region key;
+	for (int i = 1; i < listRegion.size(); i++)
+	{
+		key = listRegion.at(i);
+		j = i - 1;
 
+		while (j >= 0 && listRegion.at(j).id > key.id)
+		{
+			listRegion.at(j + 1) = listRegion.at(j);
+			j = j - 1;
+		}
+		listRegion.at(j + 1) = key;
+	}
 
+	for (int i = 0; i < listRegion.size(); i++)
+	{
+		//minx, min y, maxx, maxy
+		listPoint.push_back(listRegion.at(i).coordMinX);
+		listPoint.push_back(listRegion.at(i).coordMinY);
+		listPoint.push_back(listRegion.at(i).coordX);
+		listPoint.push_back(listRegion.at(i).coordY);
+	}
+	listRegion.clear();
+	return listPoint;
+}
 
 /*
 Actualizar el area de la region del nodo
@@ -447,7 +491,7 @@ void RTree::updateRegion(Node *node, Element *elem)
 
 }
 
-void RTree::queryRangeInt(Node* node, Region regionSearch, vector<Element> &result)
+void RTree::queryRangeInt(Node* node, Region regionSearch, vector<int> &result)
 {
 	//Buscar todas las regiones que forman interseccion con regionSearch
 	
@@ -481,7 +525,7 @@ void RTree::queryRangeInt(Node* node, Region regionSearch, vector<Element> &resu
 				regionSearch.coordX >= regionObj.coordX &&
 				regionSearch.coordY >= regionObj.coordY)
 			{
-				result.push_back(node->echildren.at(i));
+				result.push_back(node->echildren.at(i).getOid());
 			}
 
 		}
@@ -489,7 +533,7 @@ void RTree::queryRangeInt(Node* node, Region regionSearch, vector<Element> &resu
 }
 
 
-vector<Element> RTree::queryRange(int minX, int minY, int maxX, int maxY)
+vector<int> RTree::queryRange(int minX, int minY, int maxX, int maxY)
 {
 	//Buscamosregiones que este inluidas en 
 	Region regionSearch;
@@ -497,7 +541,7 @@ vector<Element> RTree::queryRange(int minX, int minY, int maxX, int maxY)
 	regionSearch.coordX = maxX;
 	regionSearch.coordMinY = minY;
 	regionSearch.coordY = maxY;
-	vector<Element> result;
+	vector<int> result;
 	queryRangeInt(root, regionSearch, result);
 
 	return result;

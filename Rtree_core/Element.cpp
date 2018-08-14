@@ -39,6 +39,11 @@ Element::Element(Polygon pol)
     mbr.coordY = maxY;
 }
 
+void Element::setOid(int id)
+{
+	oid = id;
+}
+
 int Element::getOid()
 {
     return oid;

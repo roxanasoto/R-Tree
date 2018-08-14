@@ -1,5 +1,6 @@
 #include "RTree.h"
 #include "Polygon.h"
+
 int main()
 {
     RTree* example = new RTree(3,1);
@@ -24,6 +25,17 @@ int main()
 	p9.addPoint(3, 4);
 	Polygon p10;
 	p10.addPoint(3, 4);
+	Polygon p11;
+	p11.addPoint(10, 4);
+	Polygon p12;
+	p12.addPoint(12, 4);
+	Polygon p13;
+	p13.addPoint(23, 4);
+	Polygon p14;
+	p14.addPoint(35, 4);
+	Polygon p15;
+	p15.addPoint(36, 4);
+
 
 
     example->insertElement(p1);
@@ -35,21 +47,33 @@ int main()
 	example->insertElement(p7);
 	example->insertElement(p8);
 	example->insertElement(p9);
+	example->insertElement(p10);
 
+	example->insertElement(p8);
+	example->insertElement(p9);
+	example->insertElement(p10);
 
+	example->insertElement(p11);
+	example->insertElement(p12);
+	example->insertElement(p13);
+	example->insertElement(p14);
+	example->insertElement(p15);
 	example->printTree();
 
 
 	cout << "Query range" << endl;
-	vector<Element> queryRange = example->queryRange(0, 0, 5, 4);
+	vector<int> queryRange = example->queryRange(0, 0, 5, 4);
 	for (int i = 0; i < queryRange.size(); i++)
 	{
 		cout << "Elemento " << i << endl;
-		vector<Point> points = queryRange.at(i).getPolygon().getPoints();
-		for (int j = 0; j < points.size(); j++)
+		cout << "Elemento " << queryRange.at(i) << endl;
+	//	vector<Point> points = queryRange.at(i).getPolygon().getPoints();
+		/*for (int j = 0; j < queryRange.at(i).getPolygon().getPoints().size(); j++)
 		{
-			cout << "(" << points.at(j).getX() << "," << points.at(j).getY() << ")" << endl;
-		}
+			cout << "(" << queryRange.at(i).getPolygon().getPoints().at(j).getX() << "," << queryRange.at(i).getPolygon().getPoints().at(j).getY() << ")" << endl;
+		}*/
 	}
+
+
 	getchar();
 }

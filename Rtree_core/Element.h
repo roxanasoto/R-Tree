@@ -10,6 +10,7 @@ class Element
         Element();
         Element(Polygon pol);
         int getOid();
+		void setOid(int id);
         Region getMbr();
         Polygon getPolygon();
 		float getAreaPol();
