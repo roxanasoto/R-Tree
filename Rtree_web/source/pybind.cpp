@@ -16,42 +16,55 @@ class vc{
     public: 
         vc(){
             puntos=new vector<float>();
-            rtree = new RTree(3);
+            rtree = new RTree(3,1);
             no_polygons = 0;
         };
         void set_vector();
         void insert_coordinate(float);
         int vector_size();
         int rtree_size();
-        bool rtree_insert(vector<float>);
+        vector<float> rtree_insert(vector<float>);
         int vector_iterator(int index);
         // boost::python::list rangeQuery(boost::python::list pts);
         Polygon builPolygon(vector<float>pts);
         ~vc(){};
+        vector<float> test_insert();
 };
 
 void vc::set_vector()
 {
-        // MBR pg1 (0,3,4,2,4);
-        // MBR pg2  (1,4,3,6,7);
-        // MBR pg3  (2,5,7,5,5);
-        // puntos.push_back(pg1.getXmin());
-        // puntos.push_back(pg1.getYmin());
-        // puntos.push_back(pg1.getXmax());
-        // puntos.push_back(pg1.getYmax());
+    Polygon p1;
+    p1.addPoint(1,1);
+    Polygon p2;
+    p2.addPoint(1,4);
+    Polygon p3;
+    p3.addPoint(9,3);
+    Polygon p4;
+    p4.addPoint(6,3);
+	// Polygon p5;
+	// p5.addPoint(5,3);
+	// Polygon p6;
+	// p6.addPoint(1,7);
+	// Polygon p7;
+	// p7.addPoint(4,6);
+	// Polygon p8;
+	// p8.addPoint(2, 3);
+	// Polygon p9;
+	// p9.addPoint(3, 4);
+	// Polygon p10;
+	// p10.addPoint(3, 4);
+	// Polygon p11;
+	// p11.addPoint(10, 4);
+	// Polygon p12;
+	// p12.addPoint(12, 4);
+	// Polygon p13;
+	// p13.addPoint(23, 4);
+	// Polygon p14;
+	// p14.addPoint(35, 4);
+	// Polygon p15;
+	// p15.addPoint(36, 4);
 
-        // puntos.push_back(pg2.getXmin());
-        // puntos.push_back(pg2.getYmin());
-        // puntos.push_back(pg2.getXmax());
-        // puntos.push_back(pg2.getYmax());
 
-        // puntos.push_back(pg3.getXmin());
-        // puntos.push_back(pg3.getYmin());
-        // puntos.push_back(pg3.getXmax());
-        // puntos.push_back(pg3.getYmax());
-    // for(int i=0;i<10;i++){
-    //     this->vec.push_back(i);
-    // }
         
 }
 
@@ -61,7 +74,7 @@ int vc::vector_size()
 }
 int vc::rtree_size()
 {   
-    return this->no_polygons;
+    return this->rtree->getCountElements();
 }
 int vc::vector_iterator(int index)
 {   
@@ -76,14 +89,14 @@ void vc::insert_coordinate(float cc){
   *Funcion que inserta un poligono en el R-Tree
   *Input: lista python de puntos
 */
-bool vc::rtree_insert(vector<float> pts){
+vector<float> vc::rtree_insert(vector<float> pts){
     Polygon p= builPolygon(pts);
-    bool resultado = this->rtree->insertElement(p);
-    if(resultado)
-        this->no_polygons++;
+    vector<float> mbr = this->rtree->insertElement(p);
+    // if(resultado)
+    //     this->no_polygons++;
 
     
-    return resultado;
+    return mbr;
 }
 Polygon vc::builPolygon(vector<float>pts){
     // boost::python::ssize_t len = boost::python::len(pts);

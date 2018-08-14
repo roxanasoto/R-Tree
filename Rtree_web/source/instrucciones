@@ -7,3 +7,6 @@ g++  -I/usr/include/python2.7  -I/usr/local/include -L/usr/local/lib -fpic  ICpp
 
 pybind mac
 g++ -O3 -Wall -shared -std=c++11 -undefined dynamic_lookup `python -m pybind11 --includes` pybind.cpp -o pybind`python-config --extension-suffix`
+
+Ubuntu pybind
+c++ -I/usr/include/python2.7  -O3 -Wall -shared -std=c++11 -fPIC `python -m pybind11 --includes` example.cpp -o example`python-config --extension-suffix`
