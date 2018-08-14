@@ -167,6 +167,18 @@ vector<int> vc::rangeQuery(vector<float> mbr){
     //     py= (int) floor(mbr[i+1]);
     // }
     vector<int> ids =  this->rtree->queryRange((int) floor(mbr[0]), (int) floor(mbr[1]), (int) floor(mbr[2]), (int) floor(mbr[3]));
+    // vector<int> ids;
+    // ids.push_back((int) floor(mbr[0]+0.5));
+    // ids.push_back((int) floor(mbr[1]+0.5));
+    // ids.push_back((int) floor(mbr[2]+0.5));
+    // ids.push_back((int) floor(mbr[3]+0.5));
+
+//  ids.push_back(mbr[0]);
+//  ids.push_back(mbr[1]);
+//  ids.push_back(mbr[2]);
+//  ids.push_back(mbr[3]);
+
+
     return ids;
 
 }
