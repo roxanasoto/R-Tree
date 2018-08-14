@@ -10,17 +10,25 @@ Integrantes:
 2. Lima Tinco Lizbeth
 3. Soto Barrera Roxana
 
-# MAC OSX
+Instalacion (MAC OSX)
+---------------------
+
 La siguiente instalacion fue comprobada en OSX Sierra 10.12
-# REQUERIMIENTOS:
+
+REQUERIMIENTOS:
+---------------
+
 - Brew
 - Python 2.7.15
 - Pip
 - Virtualenv
 
-# PASOS DE INSTALACION:
-- [Negrillaaaa](#negrilla).
-1.INSTALAR  HOMEBREW (#negrilla)
+PASOS DE INSTALACION:
+---------------------
+
+1.INSTALAR  HOMEBREW
+--------------------
+
 Para instalar las depencias necesarias para ejecutar la aplicacion se hara uso de brew, si no tiene instalado brew en su computador siga las siguientes instrucciones:
 
 Instalar brew: Abra una terminal (consola) y pegue el siguiente comando:
@@ -28,7 +36,9 @@ $/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/insta
 
 Siga las instrucciones que se muestran en la terminal.
 
-OBTENER COPIA LOCAL DEL CODIGO FUENTE
+2. OBTENER COPIA LOCAL DEL CODIGO FUENTE
+----------------------------------------
+
 Puede obtener la copia local de la aplicacion de dos formas:
 
 2.1 Descargando archivo comprimido: Para obtener el codigo fuente del proyecto puede descargarlo como .zip desde github en la siguiente direccion: https://github.com/roxanasoto/R-Tree
