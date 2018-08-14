@@ -53,8 +53,8 @@ def ajax_test():
         print 'se inserto?: '+str(resultadoRegiones) + ', numero de poligonos en el arbol: '+str(vc_obj.rtree_size())
         dataResult = json.dumps(resultadoRegiones)
         # print("data is " + format(datos))
-        regiones=[puntos[0],puntos[1],400,400,puntos[0]+50,puntos[1]+50,200,200]
-        dataResult=json.dumps(regiones)
+        # regiones=[puntos[0],puntos[1],400,400,puntos[0]+50,puntos[1]+50,200,200]
+        dataResult=json.dumps(resultadoRegiones)
         return dataResult
         # return render_template('ventana.html',dataResult=json.dumps(puntosOutput))
 

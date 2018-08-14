@@ -4,7 +4,7 @@
 int main()
 {
     RTree* example = new RTree(3,1);
-    
+	
     Polygon p1;
     p1.addPoint(1,1);
     Polygon p2;

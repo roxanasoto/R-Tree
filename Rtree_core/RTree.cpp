@@ -22,7 +22,9 @@ RTree::RTree(int max, int min)
 		throw runtime_error("min debe ser mayor a cero y menos a max/2");
 	}
 }
-
+int RTree::getCountElements(){
+	return this->countElem;
+}
 /*
 Insertar un nuevo elemento
 */
