@@ -12,6 +12,11 @@ print vc_obj.rtree_insert(lista)
 print vc_obj.rtree_size()
 print vc_obj.rtree_insert(poligon2)
 print vc_obj.rtree_size()
+
+
+print "prueba rango"
+
+print vc_obj.rangeQuery([1.02, 3.7, 8.1, 8])
 # lista=[2.23,5,3.6,7]
 # print vc_obj.rtree_insert(lista)
 # # print vc_obj.rtree_size()

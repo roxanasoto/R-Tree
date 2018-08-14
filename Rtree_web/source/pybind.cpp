@@ -4,6 +4,7 @@
 #include "../../Rtree_core/RTree.h"
 #include <iostream>
 #include <vector>
+#include <math.h>
 using namespace std;
 
 //c++ -O3 -Wall -shared -std=c++11 -fPIC `python2 -m pybind11 --includes`funcs.cpp wrap.cpp -o wrap`python2-config --exteuffix`x`
@@ -25,7 +26,7 @@ class vc{
         int rtree_size();
         vector<float> rtree_insert(vector<float>);
         int vector_iterator(int index);
-        // boost::python::list rangeQuery(boost::python::list pts);
+        vector<int> rangeQuery(vector<float>);
         Polygon builPolygon(vector<float>pts);
         ~vc(){};
         vector<float> test_insert();
@@ -114,52 +115,61 @@ Polygon vc::builPolygon(vector<float>pts){
     }
     return newPolygon;
 }
-// boost::python::list vc::rangeQuery(boost::python::list pts){
+vector<int> vc::rangeQuery(vector<float> mbr){
    
-//     //resultado de consulta
-//     Polygon p1;
-//     p1.addPoint(1.112,4);
-//     p1.addPoint(1.112,4);
-//     p1.addPoint(1.1121,3);
+    // //resultado de consulta
+    // Polygon p1;
+    // p1.addPoint(1.112,4);
+    // p1.addPoint(1.112,4);
+    // p1.addPoint(1.1121,3);
 
-//     Polygon p2;
-//     p2.addPoint(2,8);
-//     p2.addPoint(2,5.66);
-//     p2.addPoint(2,3);
+    // Polygon p2;
+    // p2.addPoint(2,8);
+    // p2.addPoint(2,5.66);
+    // p2.addPoint(2,3);
     
-//     Polygon p3;
-//     p3.addPoint(3,1);
-//     p3.addPoint(3,9);
-//     p3.addPoint(3,3);
+    // Polygon p3;
+    // p3.addPoint(3,1);
+    // p3.addPoint(3,9);
+    // p3.addPoint(3,3);
     
-//     Polygon p4;
-//     p4.addPoint(4,9);
-//     p4.addPoint(4,12);
-//     p4.addPoint(4,11.0004);
+    // Polygon p4;
+    // p4.addPoint(4,9);
+    // p4.addPoint(4,12);
+    // p4.addPoint(4,11.0004);
 
-//     vector<Polygon> queryResult;
-//     queryResult.push_back(p1);
-//     queryResult.push_back(p2);
-//     queryResult.push_back(p3);
-//     queryResult.push_back(p4);
-//     //extraer puntos de los poligonos respuesta y convertirlos a python::list
-//     boost::python::list list;
-//     vector<Point> pg;
-//     float x,y;
-//     for(int i=0;i<queryResult.size();i++){
-//         pg=queryResult[i].getPoints();
-//         int j=0;
-//         // list.append(pg.size());
-//         while(j<pg.size()){
-//             x=pg[j].getX();
-//             y=pg[j].getY();
-//             list.append(x);
-//             list.append(y);
-//             j+=1;
-//         }
-//     }
-//     return list;
-// }
+    // vector<Polygon> queryResult;
+    // queryResult.push_back(p1);
+    // queryResult.push_back(p2);
+    // queryResult.push_back(p3);
+    // queryResult.push_back(p4);
+    // //extraer puntos de los poligonos respuesta y convertirlos a python::list
+    // boost::python::list list;
+    // vector<Point> pg;
+    // float x,y;
+    // for(int i=0;i<queryResult.size();i++){
+    //     pg=queryResult[i].getPoints();
+    //     int j=0;
+    //     // list.append(pg.size());
+    //     while(j<pg.size()){
+    //         x=pg[j].getX();
+    //         y=pg[j].getY();
+    //         list.append(x);
+    //         list.append(y);
+    //         j+=1;
+    //     }
+    // }
+    // return list;
+    // int px, py;
+
+    // for(int i=0;i<mbr.size();i++){
+    //     px= (int) floor(mbr[i]);
+    //     py= (int) floor(mbr[i+1]);
+    // }
+    vector<int> ids =  this->rtree->queryRange((int) floor(mbr[0]), (int) floor(mbr[1]), (int) floor(mbr[2]), (int) floor(mbr[3]));
+    return ids;
+
+}
 
 
 namespace py = pybind11;
@@ -183,6 +193,6 @@ PYBIND11_MODULE(mi_modulo, m) {
         .def("vector_iterator",&vc::vector_iterator)
         .def("insert_coordinate",&vc::insert_coordinate)
         .def("rtree_insert",&vc::rtree_insert)
-        // .def("rangeQuery",&vc::rangeQuery)
+        .def("rangeQuery",&vc::rangeQuery)
     ; 
 }
