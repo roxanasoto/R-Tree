@@ -65,14 +65,12 @@ La aplicacion trabaja con Python 2.7.15. Si no la tiene Instalela con el siguien
 
 - brew install python@2
 
-Recuerde que si tiene instalado otras versiones de python debe ejecutar los comandos con “python2”, por ejemplo para instalar un paquete con pip seria:
-
-- pip2 install flask
+Nota: Recuerde que si tiene instalado otras versiones de python debe ejecutar los comandos con “python2”, por ejemplo para instalar un paquete con pip seria: pip2 install flask
  
 ## 4. Instalar virtualenv
 Las dependencias del proyecto se instalaran en un entorno virtual, para crear un virtual enviroment es necesario tener instalado virtualenv, si no lo tiene instalelo  con el siguiente comando:
 
-- pip install virtualenv
+- pip2 install virtualenv
 
 ## 5. Crear un entorno virtual
 Recuerde que debe crearlo en la carpeta que creo “Carpeta creada”. Ahora cree un entorno virtual donde se instalara las dependencias de la aplicacion:
@@ -94,15 +92,12 @@ Active el entorno virtual que creo con el siguiente comando:
 - source env/bin/activate
 
 El bash debe modificarse por ejemplo:
-De:
-		davids-iMac:Rtree_git$
-A:
-		(env) davids-iMac:Rtree_git david$
+
 
 ## 7. Instalar las dependencias
-Recuerde que en la terminal estamos en la carpeta “CarpetaCreada” . Ahora instale las dependencias de la aplicacion con el siguiente comando:
+Recuerde que en la terminal estamos en la carpeta “CarpetaCreada” y tiene activa el entorno virtual que creo . Ahora instale las dependencias de la aplicacion con el siguiente comando:
 
-- pip install -r R-Tree/requirements.txt
+- pip2 install -r R-Tree/requirements.txt
 
 Al final de la instalación de las dependencias anteriores debería obtener el siguiente resultado en la consola:
 Successfully installed Flask-1.0.2 Jinja2-2.10 MarkupSafe-1.0 WTForms-2.2.1 Werkzeug-0.14.1 click-6.7 itsdangerous-0.24
