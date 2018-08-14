@@ -14,7 +14,8 @@ La siguiente instalacion fue comprobada en OSX Sierra 10.12
 - Virtualenv
 
 # PASOS DE INSTALACION:
-# 1.INSTALAR  HOMEBREW
+- [Negrillaaaa](#negrilla).
+1.INSTALAR  HOMEBREW (#negrilla)
 Para instalar las depencias necesarias para ejecutar la aplicacion se hara uso de brew, si no tiene instalado brew en su computador siga las siguientes instrucciones:
 
 Instalar brew: Abra una terminal (consola) y pegue el siguiente comando:
