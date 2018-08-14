@@ -36,14 +36,16 @@ $/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/insta
 
 Siga las instrucciones que se muestran en la terminal.
 
-2. OBTENER COPIA LOCAL DEL CODIGO FUENTE
-----------------------------------------
+2.OBTENER COPIA LOCAL DEL CODIGO FUENTE
+---------------------------------------
 
 Puede obtener la copia local de la aplicacion de dos formas:
 
-2.1 Descargando archivo comprimido: Para obtener el codigo fuente del proyecto puede descargarlo como .zip desde github en la siguiente direccion: https://github.com/roxanasoto/R-Tree
-2.2 Clonando el repositorio: Si desea clonar el repositorio es necesario tener instalado git en su computador, si no lo tiene instalelo con el siguiente comando
-brew install git
+### 2.1 Descargando archivo comprimido: 
+Para obtener el codigo fuente del proyecto puede descargarlo como .zip desde github en la siguiente direccion: https://github.com/roxanasoto/R-Tree
+### 2.2 Clonando el repositorio: 
+Si desea clonar el repositorio es necesario tener instalado git en su computador, si no lo tiene instalelo con el siguiente comando
+	brew install git
 
 Despues de obtener la copia local del proyecto, cree una nueva carpeta donde desee tener el código fuente de la aplicación.
 
