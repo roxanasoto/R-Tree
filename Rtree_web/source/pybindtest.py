@@ -46,6 +46,9 @@ vc_obj.rtree_insert([345,218])
 
 print str(vc_obj.rangeQuery([163,230,218,-150]))
 
+print "prueba knearest"
+print vc_obj.rtree_nearestQuery(2,[2.8, 3.2])
+
 # lista=[2.23,5,3.6,7]
 # print vc_obj.rtree_insert(lista)
 # # print vc_obj.rtree_size()

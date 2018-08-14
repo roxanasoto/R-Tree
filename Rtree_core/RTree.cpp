@@ -554,9 +554,11 @@ vector<int> RTree::queryRange(int minX, int minY, int maxX, int maxY)
 /*
 Búsqueda de los k vecinos más cercanos
 */
-vector<Element>RTree::queryNearest(Polygon obj, int k)
+vector<int>RTree::queryNearest(Polygon obj, int k)
 {
-	vector<Element> result;
+	vector<int> result;
+	result.push_back(2);
+	result.push_back(5);
 	return result;
 }
 

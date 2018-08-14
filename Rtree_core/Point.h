@@ -7,12 +7,12 @@ class Point
 {
 public:
     Point();
-    Point(int, int);
-    int getX();
-    int getY();
+    Point(float, float);
+    float getX();
+    float getY();
 private: 
-    int cx;
-    int cy;
+    float cx;
+    float cy;
 //
 };
 

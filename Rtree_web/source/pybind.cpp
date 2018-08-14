@@ -27,6 +27,7 @@ class vc{
         vector<float> rtree_insert(vector<float>);
         int vector_iterator(int index);
         vector<int> rangeQuery(vector<float>);
+        vector<int> rtree_nearestQuery(int,vector<float>);
         Polygon builPolygon(vector<float>pts);
         ~vc(){};
         vector<float> test_insert();
@@ -117,55 +118,6 @@ Polygon vc::builPolygon(vector<float>pts){
 }
 vector<int> vc::rangeQuery(vector<float> mbr){
    
-    // //resultado de consulta
-    // Polygon p1;
-    // p1.addPoint(1.112,4);
-    // p1.addPoint(1.112,4);
-    // p1.addPoint(1.1121,3);
-
-    // Polygon p2;
-    // p2.addPoint(2,8);
-    // p2.addPoint(2,5.66);
-    // p2.addPoint(2,3);
-    
-    // Polygon p3;
-    // p3.addPoint(3,1);
-    // p3.addPoint(3,9);
-    // p3.addPoint(3,3);
-    
-    // Polygon p4;
-    // p4.addPoint(4,9);
-    // p4.addPoint(4,12);
-    // p4.addPoint(4,11.0004);
-
-    // vector<Polygon> queryResult;
-    // queryResult.push_back(p1);
-    // queryResult.push_back(p2);
-    // queryResult.push_back(p3);
-    // queryResult.push_back(p4);
-    // //extraer puntos de los poligonos respuesta y convertirlos a python::list
-    // boost::python::list list;
-    // vector<Point> pg;
-    // float x,y;
-    // for(int i=0;i<queryResult.size();i++){
-    //     pg=queryResult[i].getPoints();
-    //     int j=0;
-    //     // list.append(pg.size());
-    //     while(j<pg.size()){
-    //         x=pg[j].getX();
-    //         y=pg[j].getY();
-    //         list.append(x);
-    //         list.append(y);
-    //         j+=1;
-    //     }
-    // }
-    // return list;
-    // int px, py;
-
-    // for(int i=0;i<mbr.size();i++){
-    //     px= (int) floor(mbr[i]);
-    //     py= (int) floor(mbr[i+1]);
-    // }
     vector<int> ids =  this->rtree->queryRange((int) floor(mbr[0]), (int) floor(mbr[1]), (int) floor(mbr[2]), (int) floor(mbr[3]));
     // vector<int> ids;
     // ids.push_back((int) floor(mbr[0]+0.5));
@@ -181,6 +133,12 @@ vector<int> vc::rangeQuery(vector<float> mbr){
 
     return ids;
 
+}
+vector<int> vc:: rtree_nearestQuery(int k,vector<float> punto){
+    Polygon pol;
+    pol.addPoint(punto[0],punto[1]);
+    vector<int> ids = rtree->queryNearest(pol,k);
+    return ids;
 }
 
 
@@ -206,5 +164,6 @@ PYBIND11_MODULE(mi_modulo, m) {
         .def("insert_coordinate",&vc::insert_coordinate)
         .def("rtree_insert",&vc::rtree_insert)
         .def("rangeQuery",&vc::rangeQuery)
+        .def("rtree_nearestQuery",&vc::rtree_nearestQuery)
     ; 
 }

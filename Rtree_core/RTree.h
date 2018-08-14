@@ -32,7 +32,7 @@ class RTree
         vector<float> insertElement( Polygon obj);
 
 		vector<int> queryRange(int minX, int minY, int maxX, int maxY);
-        vector<Element> queryNearest(Polygon obj, int k);
+        vector<int> queryNearest(Polygon obj, int k);
 		void printTree();
 		void deleteTree();
 		void deleteNode(Node *node);
