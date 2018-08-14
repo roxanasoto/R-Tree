@@ -66,27 +66,27 @@ def ajax_test():
 def rangeQuery():
 
     datos = request.json
-    # puntosInput=[]
+    puntosInput=[]
     #for coordenada in datos:
-    # x1 = datos[0]['x1']
-    # y1 = datos[0]['y1']
-    # x2 = datos[0]['x2']
-    # y2 = datos[0]['y2']
-    # puntosInput.append(x1)
-    # puntosInput.append(y1)
-    # puntosInput.append(x2)
-    # puntosInput.append(y2)
+    x1 = datos[0]['x1']
+    y1 = datos[0]['y1']
+    x2 = datos[0]['x2']
+    y2 = datos[0]['y2']
+    puntosInput.append(x1)
+    puntosInput.append(y1)
+    puntosInput.append(x2)
+    puntosInput.append(y2)
 
     #for coordenada in datos:
         #xmin = coordenada['x']
         #ymin= coordenada['y']
         #puntosInput.append(xmin)
         #puntosInput.append(ymin)
-    # ids = vc_obj.rangeQuery(puntos)
-    # puntosOutput = [1,2,3,4,5]
+    ids = vc_obj.rangeQuery(puntosInput)
+    #puntosOutput = [1,2,3,4,5]
     # print puntosOutput
-    dataResult = json.dumps(datos)
-    print "llamado"
+    dataResult = json.dumps(ids)
+    #print "llamado"
         #print("data is " + format(datos))
     return  dataResult
         #return render_template('ventana.html',dataResult=json.dumps(puntosOutput))

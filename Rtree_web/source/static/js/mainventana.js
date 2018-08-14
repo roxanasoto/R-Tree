@@ -4,7 +4,7 @@ var id=0;
 var idsPerimeters =  new Array();
 var perimeter = new Array();
 var complete = false;
-var canvas = document.getElementById("jPolygon");
+var canvas = document.getElementById("rTreeCanvas");
 var ctx;
 var numElement = 2;
 var element = [];
@@ -320,6 +320,7 @@ function insertPolygon(elem){
     canvas.removeEventListener("mousemove", funcNearestQuery)
 }
 //funciones query Range
+var pointsRectangle;
 function drawRegion() {
     ctx.putImageData(ImageGlobal, 0, 0);
     ctx.fillStyle = 'rgba(0, 0, 255, 0.25)';
@@ -329,31 +330,10 @@ function drawRegion() {
     var x2 = rect.w;
     var y2 = rect.h;
     ctx.strokeRect(rect.startX, rect.startY, rect.w, rect.h);
-    var pointsRectangle= new Array();
+    pointsRectangle= new Array();
     pointsRectangle.push({'x1':x1,'y1':y1,'x2':x2,'y2':y2 });
-    document.getElementById('coordinates').value = JSON.stringify(pointsRectangle);
-    //creo que esto no deberia ir
-    //ctx.putImageData(Image, 0, 0);
-    //
-    var url = "/rangeQuery";
-
-    $.ajax({
-        type: 'POST',
-        url: url,
-         //dataType: 'json',
-        contentType: "application/json",
-        data: JSON.stringify(pointsRectangle),
-        success: function(response)
-        {
-
-            console.log(response);
-            var list=JSON.parse(response);
-
-            reDrawElement(list);
 
 
-        }
-     });
 }
 function mouseMove(e) {
   if (drag) {
@@ -367,6 +347,28 @@ function mouseMove(e) {
 }
 function mouseUp(){
   drag = false;
+  document.getElementById('coordinates').value = JSON.stringify(pointsRectangle);
+    //creo que esto no deberia ir
+    //ctx.putImageData(Image, 0, 0);
+    //
+  var url = "/rangeQuery";
+  $.ajax({
+            type: 'POST',
+            url: url,
+         //dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify(pointsRectangle),
+            success: function(response)
+            {
+
+                console.log(response);
+                var list=JSON.parse(response);
+
+                reDrawElement(list);
+
+
+            }
+        });
 }
 function mouseDown(e) {
   rect.startX = e.pageX - this.offsetLeft;
