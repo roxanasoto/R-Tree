@@ -44,26 +44,26 @@ bool Node::funcioncomparee(Element a,Element b){
 float Node::distanceToPoint(Point p){
 	Point difference;
 	int distanceResult;
-	if (p.cx > region->coordMinX)
+	if (p.getX() > region->coordMinX)
 	{
-		if (p.cx < region->coordX)
-				difference.cx = 0;
+		if (p.getX() < region->coordX)
+				difference.setX(0);
 		else
-			difference.cx = p.cx - region->coordX;
+			difference.setX(p.getX() - region->coordX);
 	}
 	else
-	difference.cx = region->coordMinX - p.cx;
-	if (p.cy > region->coordMinY)
+	difference.setX(region->coordMinX - p.getX());
+	if (p.getY() > region->coordMinY)
 	{
-		if (p.cy < region->coordY)
-			difference.cy = 0;
+		if (p.getY() < region->coordY)
+			difference.setY(0);
 		else
-			difference.cy = p.cy - region->coordY;
+			difference.setY(p.getY() - region->coordY);
 	}
 	else
-		difference.cy = region->coordMinY - p.cy;
+		difference.setY(region->coordMinY - p.getY());
 
-	this->distance = sqrt(difference.cx*difference.cx + difference.cy*difference.cy);
+	this->distance = sqrt(difference.getX()*difference.getX() + difference.getY()*difference.getY());
 	return this->distance;
 }
 void Node::sort(Point p){

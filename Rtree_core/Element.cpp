@@ -82,25 +82,25 @@ void Element::print()
 float Element::distanceToPoint(Point p){
   Point difference;
   int distanceResult;
-  if (p.cx > mbr.coordMinX)
+  if (p.getX() > mbr.coordMinX)
   {
-    if (p.cx < mbr.coordX)
-        difference.cx = 0;
+    if (p.getX() < mbr.coordX)
+        difference.setX(0);
     else
-      difference.cx = p.cx - mbr.coordX;
+      difference.setX(p.getX() - mbr.coordX);
   }
   else
-  difference.cx = mbr.coordMinX - p.cx;
-  if (p.cy > mbr.coordMinY)
+  difference.setX(mbr.coordMinX - p.getX());
+  if (p.getY() > mbr.coordMinY)
   {
-    if (p.cy < mbr.coordY)
-      difference.cy = 0;
+    if (p.getY() < mbr.coordY)
+      difference.setY(0);
     else
-      difference.cy = p.cy - mbr.coordY;
+      difference.setY( p.getY() - mbr.coordY);
   }
   else
-    difference.cy = mbr.coordMinY - p.cy;
+    difference.setY(mbr.coordMinY - p.getY());
 
-  this->distance = sqrt(difference.cx*difference.cx + difference.cy*difference.cy);
+  this->distance = sqrt(difference.getX()*difference.getX() + difference.getY()*difference.getY());
   return this->distance;
 }

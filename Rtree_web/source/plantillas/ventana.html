@@ -11,52 +11,65 @@
     </head>
     <body onload="clear_canvas()">
         <div id="header">
-            <h1>DEMO RTREE</h1>
+            <h1>DEMO R-TREE</h1>
+            <h2>Elaborated for Lima Liz, Choqueluque David and Soto Roxana</h2>
         </div>
-        <div style="float:left">
-            <canvas id="rTreeCanvas" width="700" height="630" style="cursor:crosshair" data-imgsrc="{{url_for('static',filename='images/grid.jpg')}}" oncontextmenu="return false;">
+        <div>
+        <div id="canvasTree" style="float:left">
+            <canvas id="rTreeCanvas" width="1300" height="1190" style="cursor:crosshair" data-imgsrc="{{url_for('static',filename='images/grid.jpg')}}" oncontextmenu="return false;">
                 Your browser does not support the HTML5 canvas tag.
             </canvas>
         </div>
 
-        <div style="float:left; margin-left:20px;">
+        <div id="functions" style="float:left">
             <div class="insert">
-                <p><strong>Insert</strong></p>
+                <p><strong>Functions for insert Elements</strong></p>
                 <div>
-                    <button id="i_point" type="button" onclick="insertPoint(this)">Insert Point</button><font size="2">Press <strong>Left Click</strong> to draw a point.</font>
+                    <button id="i_point" type="button" onclick="insertPoint(this)">Insert Point</button>
+                    <p2>Press to draw a point.</p2>
                 </div>
                 <div>
-                    <br/><button id="i_polygon" type="button" onclick="insertPolygon(this)">Insert Polygon</button><font size="2">Press Left Click</strong> to draw a point and <strong>CTRL+Click</strong> or <strong>Right Click</strong> to close the polygon.</font>
+                    <br/><button id="i_polygon" type="button" onclick="insertPolygon(this)">Insert Polygon</button>
+                    <p2>Press to draw a polygon and <strong>CTRL+Click</strong> or <strong>Right Click</strong> to close the polygon.</p2>
                 </div>
                 <!--<button id="b_ajax" type="button"> Ajax test</button>-->
             </div>
 
+        <!--</div>-->
+
+        <!--<div style="float:left">-->
             <div class="query">
-                <p><strong>Query</strong></p>
+                <p><strong>Functions for Querys</strong></p>
                 <div>
-                    <button id="q_range" type="button" onclick="queryRange()">Query Range</button><font size="2">Press <strong>Left Click</strong> to draw a range.</font>
+                    <button id="q_range" type="button" onclick="queryRange(this)">Query Range</button>
+                    <p2>Press to draw a range  and <strong>select to point and drag in a button-right direcctions</strong> .</p2>
                 </div>
                 <div>
                      <br/><input type="number" id="myNumberK" value="2">
                      <button id="q_nearest" type="button" onclick="queryNearest(this)">Query Nearest</button>
+                     <p2>Write the number, press and <strong>Move mouse</strong> to find the nearests.</p2>
                 </div>
 
             </div>
+        <!--</div>-->
 
+        <!--<div style="float:left">-->
             <div class="data">
                 <p><strong>Coordinates:</strong></p>
                 <textarea id="coordinates" disabled="disabled" style="width:300px; height:200px;"></textarea>
             </div>
-            <div class="clear">
-                <button onclick="clear_tree()">Clear</button>
+        <!--</div>-->
 
+
+            <div class="clear_tree">
+                <button onclick="clearcanvas()">Clear</button>
             </div>
             <div class="references">
                 <p>Go to <a href="https://www.youtube.com/watch?v=ZxfR_94zuno&t=1s">project video</a> - <a href="https://github.com/roxanasoto/R-Tree">source code</a></p>
             </div>
-
         </div>
 
+        </div>
         <script type="text/javascript" src="{{url_for('static',filename='js/mainventana.js')}}"></script>
     </body>
 </html>

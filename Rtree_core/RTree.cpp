@@ -587,14 +587,14 @@ void RTree::searchNearest(std::vector<Element> &v,Node* node)
 		if (v.size() > k_search)
 		{
 			v.resize(k_search);
-			distance_search = v[v.size() - 1].distanceToPoint(p_search);
+			distance_search = v[k_search - 1].distanceToPoint(p_search);
 		}
 	}
 	else{
-		for (int i = 0; i < node->children.size(); ++i)
+		for (Node* child:node->children)
 		{
-			if(node->children[i]->distanceToPoint(p_search)<distance_search)
-			searchNearest(v,node->children[i]);
+			if(child->distance<distance_search)
+			searchNearest(v,child);
 		}
 	}
 }
@@ -605,8 +605,6 @@ vector<int> RTree::queryNearest(Polygon obj, int k)
 	vector<Element> result;
 	k_search = k;
 	distance_search = 750.0f;
-	/*result.push_back(2);
-	result.push_back(5);*/
 	searchNearest(result,root);
 	vector<int> index_result;
 	for (size_t i = 0; i < k; i++)

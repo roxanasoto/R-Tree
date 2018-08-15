@@ -12,3 +12,13 @@ float Point::getX(){
 float Point::getY(){
     return this->cy;
 }
+
+void Point::setX(float x)
+{
+	cx = x;
+}
+
+void Point::setY(float y)
+{
+	cy = y;
+}
