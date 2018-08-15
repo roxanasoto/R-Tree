@@ -12,6 +12,8 @@ public:
 	float getY();
 	float cx;
 	float cy;
+
+private: 
 //
 };
 
