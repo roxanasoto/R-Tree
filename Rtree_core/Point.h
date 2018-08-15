@@ -13,8 +13,6 @@ public:
 private: 
 	float cx;
 	float cy;
-
-private: 
 //
 };
 
