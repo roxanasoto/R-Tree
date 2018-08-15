@@ -63,7 +63,7 @@ float Node::distanceToPoint(Point p){
 void Node::sort(Point p){
 	if(this->isLeaf)
 	{
-		for(int i=0;i<children.size();i++){
+		for(int i=0;i<echildren.size();i++){
 			echildren[i].distanceToPoint(p);//mbr point
 		}
 
@@ -78,4 +78,6 @@ void Node::sort(Point p){
 	}
 	
 }
+
+
 

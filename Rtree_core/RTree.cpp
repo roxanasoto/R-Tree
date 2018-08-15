@@ -1,3 +1,4 @@
+#include <algorithm>
 
 #include "RTree.h"
 using namespace std;
@@ -564,7 +565,7 @@ Búsqueda de los k vecinos más cercanos
 */
 void RTree::searchNearest(std::vector<Element> &v,Node* node)
 {
-
+	node->sort(p_search);
 	if(node->isLeaf)
 	{
 		for (Element e : node->echildren)
@@ -573,12 +574,13 @@ void RTree::searchNearest(std::vector<Element> &v,Node* node)
 
 		}
 		std::sort(v.begin(), v.end(), Node::funcioncomparee);
-		if(v.size()>k_search)
+		if (v.size() > k_search)
+		{
 			v.resize(k_search);
-		distance_search = v[v.size() - 1].distanceToPoint(p_search);
+			distance_search = v[v.size() - 1].distanceToPoint(p_search);
+		}
 	}
 	else{
-		node->sort(p_search);
 		for (int i = 0; i < node->children.size(); ++i)
 		{
 			if(node->children[i]->distanceToPoint(p_search)<distance_search)
