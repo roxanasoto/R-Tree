@@ -399,9 +399,9 @@ void RTree::splitNodeInterno(Node *node)
 		node->children.push_back(regionLeft);
 		node->children.push_back(regionRight);
 		//actualizar region 
-			node->updateRegion();
 		if (node->region != NULL)
 		{
+			node->updateRegion();
 			//listRegion.push_back(*node->region);
 		}
 	}
