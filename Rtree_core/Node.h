@@ -13,7 +13,7 @@ class Node
 		vector<Node*> children;
 		//Node is leaf
 		vector<Element> echildren;
-
+		Node();
 		float getAreaNode();
 		void updateRegion();
 
