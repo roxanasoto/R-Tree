@@ -96,14 +96,18 @@ def rangeQuery():
 def nearestQuery():
 
     datos = request.json
+    puntosInput=[]
     x = datos[0]['x']
     y = datos[0]['y']
-    k = datos[1]
-
-    #puntosOutput = vc_obj.rangeQuery(x,y,k)
-    puntosOutput = [1,5,7]
-    print puntosOutput
-    dataResult = json.dumps(puntosOutput)
+    k = datos[1]['k']
+    puntosInput.append(x)
+    puntosInput.append(y)
+    #puntosInput.append(k)
+    
+    ids = vc_obj.nearestQuery(puntosInput,k)
+    #puntosOutput = [1,5,7]
+    #print puntosids
+    dataResult = json.dumps(ids)
 
         #print("data is " + format(datos))
     return  dataResult

@@ -27,8 +27,9 @@ class vc{
         vector<float> rtree_insert(vector<float>);
         int vector_iterator(int index);
         vector<int> rangeQuery(vector<float>);
-        vector<int> rtree_nearestQuery(int,vector<float>);
+        vector<int> nearestQuery(vector<int>,int);
         Polygon builPolygon(vector<float>pts);
+        void delete_tree();
         ~vc(){};
         vector<float> test_insert();
 };
@@ -42,32 +43,7 @@ void vc::set_vector()
     Polygon p3;
     p3.addPoint(9,3);
     Polygon p4;
-    p4.addPoint(6,3);
-	// Polygon p5;
-	// p5.addPoint(5,3);
-	// Polygon p6;
-	// p6.addPoint(1,7);
-	// Polygon p7;
-	// p7.addPoint(4,6);
-	// Polygon p8;
-	// p8.addPoint(2, 3);
-	// Polygon p9;
-	// p9.addPoint(3, 4);
-	// Polygon p10;
-	// p10.addPoint(3, 4);
-	// Polygon p11;
-	// p11.addPoint(10, 4);
-	// Polygon p12;
-	// p12.addPoint(12, 4);
-	// Polygon p13;
-	// p13.addPoint(23, 4);
-	// Polygon p14;
-	// p14.addPoint(35, 4);
-	// Polygon p15;
-	// p15.addPoint(36, 4);
-
-
-        
+    p4.addPoint(6,3);        
 }
 
 int vc::vector_size()
@@ -86,6 +62,9 @@ int vc::vector_iterator(int index)
 }
 void vc::insert_coordinate(float cc){
     this->puntos->push_back(cc);
+}
+void vc::delete_tree(){
+    this->rtree->deleteTree();
 }
 /**
   *Funcion que inserta un poligono en el R-Tree
@@ -129,15 +108,12 @@ vector<int> vc::rangeQuery(vector<float> mbr){
 //  ids.push_back(mbr[1]);
 //  ids.push_back(mbr[2]);
 //  ids.push_back(mbr[3]);
-
-
     return ids;
-
 }
-vector<int> vc:: rtree_nearestQuery(int k,vector<float> punto){
+vector<int> vc::nearestQuery(vector<int> punto, int k){
     Polygon pol;
     pol.addPoint(punto[0],punto[1]);
-    vector<int> ids = rtree->queryNearest(pol,k);
+    vector<int> ids = this->rtree->queryNearest(pol,k);
     return ids;
 }
 
@@ -164,6 +140,7 @@ PYBIND11_MODULE(mi_modulo, m) {
         .def("insert_coordinate",&vc::insert_coordinate)
         .def("rtree_insert",&vc::rtree_insert)
         .def("rangeQuery",&vc::rangeQuery)
-        .def("rtree_nearestQuery",&vc::rtree_nearestQuery)
+        .def("nearestQuery",&vc::nearestQuery)
+        .def("delete_tree",&vc::delete_tree)
     ; 
 }

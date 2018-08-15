@@ -1,44 +1,60 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Example using jPolygon</title>
+        <title>Proyecto Rtree - Maestría Universidad Catolica San Pablo</title>
         <meta charset="UTF-8">
         <meta name="description" content="An example using jPolygon">
         <meta name="keywords" content="HTML,CSS,JavaScript,jPolygon">
         <meta name="author" content="Roxana Soto">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" type = "text/css" href="css/style.css">
     </head>
     <body onload="clear_canvas()">
+        <div id="header">
+            <h1>DEMO RTREE</h1>
+        </div>
         <div style="float:left">
-            <canvas id="rTreeCanvas" width="608" height="566" style="cursor:crosshair" data-imgsrc="{{url_for('static',filename='images/grid.jpg')}}" oncontextmenu="return false;">
+            <canvas id="rTreeCanvas" width="700" height="630" style="cursor:crosshair" data-imgsrc="{{url_for('static',filename='images/grid.jpg')}}" oncontextmenu="return false;">
                 Your browser does not support the HTML5 canvas tag.
             </canvas>
         </div>
 
         <div style="float:left; margin-left:20px;">
-            <div>
+            <div class="insert">
                 <p><strong>Insert</strong></p>
-                <button id="i_point" type="button" onclick="insertPoint(this)">Point</button><font size="2">Press <strong>Left Click</strong> to draw a point.</font>
-                <br/><button id="i_polygon" type="button" onclick="insertPolygon(this)">Polygon</button><font size="2">Press Left Click</strong> to draw a point and <strong>CTRL+Click</strong> or <strong>Right Click</strong> to close the polygon.</font>
-                <button id="b_ajax" type="button"> Ajax test</button>
+                <div>
+                    <button id="i_point" type="button" onclick="insertPoint(this)">Insert Point</button><font size="2">Press <strong>Left Click</strong> to draw a point.</font>
+                </div>
+                <div>
+                    <br/><button id="i_polygon" type="button" onclick="insertPolygon(this)">Insert Polygon</button><font size="2">Press Left Click</strong> to draw a point and <strong>CTRL+Click</strong> or <strong>Right Click</strong> to close the polygon.</font>
+                </div>
+                <!--<button id="b_ajax" type="button"> Ajax test</button>-->
             </div>
 
-            <div>
-                <button id="q_range" type="button" onclick="queryRange()">Range</button><font size="2">Press <strong>Left Click</strong> to draw a range.</font>
-                <input type="number" id="myNumberK" value="2">
-                <button id="q_nearest" type="button" onclick="queryNearest(this)">NEAREST</button>
+            <div class="query">
+                <p><strong>Query</strong></p>
+                <div>
+                    <button id="q_range" type="button" onclick="queryRange()">Query Range</button><font size="2">Press <strong>Left Click</strong> to draw a range.</font>
+                </div>
+                <div>
+                     <br/><input type="number" id="myNumberK" value="2">
+                     <button id="q_nearest" type="button" onclick="queryNearest(this)">Query Nearest</button>
+                </div>
+
             </div>
-            <div>
+
+            <div class="data">
                 <p><strong>Coordinates:</strong></p>
                 <textarea id="coordinates" disabled="disabled" style="width:300px; height:200px;"></textarea>
             </div>
-            <div>
-                <p>Go to <a href="https://www.youtube.com/watch?v=ZxfR_94zuno&t=1s">project video</a> - <a href="https://github.com/roxanasoto/R-Tree">source code</a></p>
-            </div>
-            <div>
+            <div class="clear">
                 <button onclick="clear_canvas()">Clear</button>
 
             </div>
+            <div class="references">
+                <p>Go to <a href="https://www.youtube.com/watch?v=ZxfR_94zuno&t=1s">project video</a> - <a href="https://github.com/roxanasoto/R-Tree">source code</a></p>
+            </div>
+
         </div>
 
         <script type="text/javascript" src="{{url_for('static',filename='js/mainventana.js')}}"></script>
