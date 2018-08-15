@@ -1,0 +1,50 @@
+#header{
+    background-image: url("http://ucsp.edu.pe/wp-content/uploads/2018/02/logo_sanpablo_opt.png");
+    background-position: right bottom, left top;
+    background-repeat: no-repeat, repeat;
+    padding: 15px;
+}
+
+body{
+}
+p{
+    font-size: 20px;
+    color:green;
+    text-transform: uppercase;
+}
+.insert{
+
+    background: white;
+    with: 400px:
+    height: 100px;
+    padding: 20px;
+    border: 10px solid white;
+}
+.query{
+    background: white;
+    with: 400px:
+    height: 100px;
+    padding: 20px;
+    border: 10px solid white;
+}
+.data{
+    background: white;
+    with: 400px:
+    height: 100px;
+    padding: 20px;
+    border: 10px solid white;
+}
+.clear{
+    background: white;
+    with: 400px:
+    height: 100px;
+    padding: 20px;
+    border: 10px solid white;
+}
+.references{
+    background: white;
+    with: 400px:
+    height: 100px;
+    padding: 20px;
+    border: 10px solid white;
+}

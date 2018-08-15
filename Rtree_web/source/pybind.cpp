@@ -27,7 +27,7 @@ class vc{
         vector<float> rtree_insert(vector<float>);
         int vector_iterator(int index);
         vector<int> rangeQuery(vector<float>);
-        vector<int> rtree_nearestQuery(int,vector<float>);
+        vector<int> nearestQuery(vector<int>,int);
         Polygon builPolygon(vector<float>pts);
         ~vc(){};
         vector<float> test_insert();
@@ -134,10 +134,10 @@ vector<int> vc::rangeQuery(vector<float> mbr){
     return ids;
 
 }
-vector<int> vc:: rtree_nearestQuery(int k,vector<float> punto){
+vector<int> vc::nearestQuery(vector<int> punto, int k){
     Polygon pol;
     pol.addPoint(punto[0],punto[1]);
-    vector<int> ids = rtree->queryNearest(pol,k);
+    vector<int> ids = this->rtree->queryNearest(pol,k);
     return ids;
 }
 
@@ -164,6 +164,6 @@ PYBIND11_MODULE(mi_modulo, m) {
         .def("insert_coordinate",&vc::insert_coordinate)
         .def("rtree_insert",&vc::rtree_insert)
         .def("rangeQuery",&vc::rangeQuery)
-        .def("rtree_nearestQuery",&vc::rtree_nearestQuery)
+        .def("nearestQuery",&vc::nearestQuery)
     ; 
 }
