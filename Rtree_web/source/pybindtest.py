@@ -14,29 +14,31 @@ poligon2=[331,186]
 # print vc_obj.rtree_insert(poligon2)
 # print vc_obj.rtree_size()
 
-# print "inserciones "
-# vc_obj.rtree_insert([9.68,3.323])
-# vc_obj.rtree_insert([6.43,3.89])
-# vc_obj.rtree_insert([5.66,3.44])
-# vc_obj.rtree_insert([1,7.5])
-# vc_obj.rtree_insert([4,6.09])
-# vc_obj.rtree_insert([2.65, 3])
-# vc_obj.rtree_insert([3, 4])
-# vc_obj.rtree_insert([3, 4.78])
-# vc_obj.rtree_insert([10.44, 4.66])
-# vc_obj.rtree_insert([23.66, 4.4])
-# vc_obj.rtree_insert([35.21, 4])
-# vc_obj.rtree_insert([36, 4.0987])
+print "inserciones "
+vc_obj.rtree_insert([9.68,3.323])
+vc_obj.rtree_insert([6.43,3.89])
+vc_obj.rtree_insert([5.66,3.44])
+vc_obj.rtree_insert([1,7.5])
+vc_obj.rtree_insert([4,6.09])
+vc_obj.rtree_insert([2.65, 3])
+vc_obj.rtree_insert([3, 4])
+vc_obj.rtree_insert([3, 4.78])
+vc_obj.rtree_insert([10.44, 4.66])
+vc_obj.rtree_insert([23.66, 4.4])
+vc_obj.rtree_insert([35.21, 4])
+vc_obj.rtree_insert([36, 4.0987])
 
-# print "size"
-# print vc_obj.rtree_size()
+print "size"
+print vc_obj.rtree_size()
 
+vc_obj.delete_tree()
 # print "prueba rango"
 
 # print str(vc_obj.rangeQuery([0, 0, 5, 4]))
+print "size"
+print vc_obj.rtree_size()
 
-
-print "prueba rango2"
+# print "prueba rango2"
 
 
 # [21:52, 15/8/2018] Roxana Maestria: [{"x":393.01171875,"y":55.41015625}]

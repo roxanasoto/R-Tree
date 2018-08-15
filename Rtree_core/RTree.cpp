@@ -34,7 +34,7 @@ vector<float> RTree::insertElement(Polygon pol)
 {
 	//bool state = true;
 	Element obj(pol);
-	obj.setOid(++countElem);
+	obj.setOid(countElem++);
 	if (root->isLeaf)
 	{
 		root->echildren.push_back(obj);

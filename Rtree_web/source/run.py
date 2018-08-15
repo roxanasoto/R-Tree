@@ -50,7 +50,12 @@ def ajax_test():
 
 
         resultadoRegiones = vc_obj.rtree_insert(puntos)
-        print 'se inserto?: '+str(resultadoRegiones) + ', numero de poligonos en el arbol: '+str(vc_obj.rtree_size())
+        
+        print 'se enviara el poligono: ' + str(puntos)
+        print 'inssertar devulve: '+ str(resultadoRegiones)
+        print 'numero de poligonos en el arbol: '+str(vc_obj.rtree_size())
+
+        # print 'se inserto?: '+str(resultadoRegiones) + ', numero de poligonos en el arbol: '+str(vc_obj.rtree_size())
         dataResult = json.dumps(resultadoRegiones)
         # print("data is " + format(datos))
         # regiones=[puntos[0],puntos[1],400,400,puntos[0]+50,puntos[1]+50,200,200]
@@ -62,6 +67,21 @@ def ajax_test():
         #return json.dumps(datos)
 
 ####################consultar Range #####################
+
+
+####clear tree#######
+@app.route('/clear', methods =['POST'])
+def clearTree():
+    datos = request.json
+    vc_obj.delete_tree()
+    size = vc_obj.rtree_size()
+    print "size despues de clear: "+str(size)
+    
+    dataResult=json.dumps(datos)
+    return dataResult
+####################consultar Range #####################
+
+
 @app.route('/rangeQuery', methods =['POST'])
 def rangeQuery():
 

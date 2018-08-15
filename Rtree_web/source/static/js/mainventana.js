@@ -41,6 +41,24 @@ $(document).ready(function(){
     });
 });
 
+function clear_tree(){
+    clear_canvas()
+    var url = "/clear";
+
+    $.ajax({
+       type: 'POST',
+       url: url,
+       //dataType: 'json',
+       contentType: "application/json",
+       data: JSON.stringify(1),
+       success: function(response)
+       {
+            console.log('se limpio: ',response);
+       }
+   });
+
+}
+
 //funciones para limpiar la ventana
 function clear_canvas(){
     ctx = undefined;
