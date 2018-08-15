@@ -1,5 +1,4 @@
 #include <algorithm>
-
 #include "RTree.h"
 using namespace std;
 
@@ -196,6 +195,7 @@ void  RTree::splitNode(Node* node)
 	float aumRight = 0;
 
 	//Area de cada grupo
+	vector<Element> tempAsc;
 	areaElemI = (areaNodeLeft->coordX - areaNodeLeft->coordMinX)*(areaNodeLeft->coordY - areaNodeLeft->coordMinY); //area del grupo left
 	areaElemII = (areaNodeRigth->coordX - areaNodeRigth->coordMinX)*(areaNodeRigth->coordY - areaNodeRigth->coordMinY);; // area de grupo right
 	for (int i = 0; i < node->echildren.size(); i++)
@@ -206,7 +206,7 @@ void  RTree::splitNode(Node* node)
 
 			aumLeft = calcArea(*areaNodeLeft, node->echildren.at(i).getMbr()) - areaElemI;
 			aumRight = calcArea(*areaNodeRigth, node->echildren.at(i).getMbr()) - areaElemII;
-			if (aumLeft < aumRight)
+			if ( aumLeft < aumRight)
 			{
 				nodeLeft.push_back(node->echildren.at(i));
 				updateRegion(*areaNodeLeft, node->echildren.at(i).getMbr());
@@ -399,8 +399,11 @@ void RTree::splitNodeInterno(Node *node)
 		node->children.push_back(regionLeft);
 		node->children.push_back(regionRight);
 		//actualizar region 
-		node->updateRegion();
-		listRegion.push_back(*node->region);
+		if (node->region != NULL)
+		{
+			node->updateRegion();
+			listRegion.push_back(*node->region);
+		}
 	}
 	else
 	{
@@ -605,6 +608,7 @@ vector<int> RTree::queryNearest(Polygon obj, int k)
 	}
 	return index_result;
 }
+
 /*
 Calcular la nueva region que incluye el la region del elemento
 */
