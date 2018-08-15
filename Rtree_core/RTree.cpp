@@ -454,8 +454,12 @@ vector<float> RTree::getPointRegion()
 		//minx, min y, maxx, maxy
 		listPoint.push_back(listRegion.at(i).coordMinX);
 		listPoint.push_back(listRegion.at(i).coordMinY);
-		listPoint.push_back(listRegion.at(i).coordX);
-		listPoint.push_back(listRegion.at(i).coordY);
+		float ancho = abs(listRegion.at(i).coordX-listRegion.at(i).coordMinX);
+		float alto = abs(listRegion.at(i).coordY-listRegion.at(i).coordMinY);
+		// listPoint.push_back(listRegion.at(i).coordX);
+		// listPoint.push_back(listRegion.at(i).coordY);
+		listPoint.push_back(ancho);
+		listPoint.push_back(alto);
 	}
 	listRegion.clear();
 	return listPoint;
