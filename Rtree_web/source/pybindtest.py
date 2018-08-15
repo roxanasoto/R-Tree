@@ -38,16 +38,29 @@ poligon2=[331,186]
 
 print "prueba rango2"
 
+
+# [21:52, 15/8/2018] Roxana Maestria: [{"x":393.01171875,"y":55.41015625}]
+# [21:52, 15/8/2018] Roxana Maestria: [{"x":298.01171875,"y":247.41015625}]
+# [21:52, 15/8/2018] Roxana Maestria: [{"x":369.01171875,"y":373.41015625}]
+# [21:52, 15/8/2018] Roxana Maestria: [{"x":153.01171875,"y":243.41015625}]
+# [21:53, 15/8/2018] Roxana Maestria: [{"x":97.01171875,"y":536.41015625}]
+
 vc_obj.rtree_insert([207,117])
 vc_obj.rtree_insert([307,113])
 vc_obj.rtree_insert([252,183])
 vc_obj.rtree_insert([345,218])
 vc_obj.rtree_insert([345,218])
 
+print "rtree size"
+print vc_obj.rtree_size()
+
 print str(vc_obj.rangeQuery([163,230,218,-150]))
 
-print "prueba knearest"
-print vc_obj.rtree_nearestQuery(2,[2.8, 3.2])
+print "prueba delete tree"
+
+vc_obj.delete_tree()
+print vc_obj.rtree_size()
+# print vc_obj.rtree_nearestQuery(2,[2.8, 3.2])
 
 # lista=[2.23,5,3.6,7]
 # print vc_obj.rtree_insert(lista)
