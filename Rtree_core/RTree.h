@@ -30,8 +30,8 @@ class RTree
 		vector<int> queryRange(float minX, float minY, float maxX, float maxY);
         vector<Element> queryNearest(Polygon obj, int k);
 		int getCountElements();
+		void getRegion(Node *node, vector<Region> &list);
 		void deleteTree();
 		void printTree();
-
 
 };
