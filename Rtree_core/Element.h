@@ -15,9 +15,6 @@ class Element
         Polygon getPolygon();
 		float getAreaPol();
 		void print();
-        float distance;
-        float distanceToPoint(Point p);
-
     private:
         int oid;
         Region mbr;

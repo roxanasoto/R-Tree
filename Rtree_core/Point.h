@@ -10,10 +10,9 @@ public:
     Point(float, float);
 	float getX();
 	float getY();
+private: 
 	float cx;
 	float cy;
-
-private: 
 //
 };
 
