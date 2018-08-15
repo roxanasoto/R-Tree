@@ -1,10 +1,5 @@
 #include "Node.h"
 
-Node::Node()
-{
-	region = NULL;
-}
-
 float Node::getAreaNode()
 {
 	if (region != NULL) 
@@ -17,7 +12,7 @@ float Node::getAreaNode()
 
 void Node::updateRegion()
 {
-	if (region != NULL && region != NULL)
+	if (region != NULL)
 	{
 		for (int i = 0; i < children.size(); i++)
 		{
