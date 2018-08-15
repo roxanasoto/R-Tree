@@ -8,7 +8,7 @@ class Node
 	public:
 		bool isLeaf;
 		Region *region;
-		//vector<Region> keyRegion;
+		float distance;
 		Node *parent;
 		vector<Node*> children;
 		//Node is leaf

@@ -77,3 +77,30 @@ void Element::print()
 	}
 	cout << endl;
 }
+
+
+float Element::distanceToPoint(Point p){
+  Point difference;
+  int distanceResult;
+  if (p.cx > mbr.coordMinX)
+  {
+    if (p.cx < mbr.coordX)
+        difference.cx = 0;
+    else
+      difference.cx = p.cx - mbr.coordX;
+  }
+  else
+  difference.cx = mbr.coordMinX - p.cx;
+  if (p.cy > mbr.coordMinY)
+  {
+    if (p.cy < mbr.coordY)
+      difference.cy = 0;
+    else
+      difference.cy = p.cy - mbr.coordY;
+  }
+  else
+    difference.cy = mbr.coordMinY - p.cy;
+
+  this->distance = sqrt(difference.cx*difference.cx + difference.cy*difference.cy);
+  return this->distance;
+}

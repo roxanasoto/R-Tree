@@ -1,5 +1,5 @@
-
 #include "RTree.h"
+#include <algorithm>
 using namespace std;
 
 RTree::RTree(int max, int min)
@@ -573,10 +573,47 @@ vector<int> RTree::queryRange(float minX, float minY, float maxX, float maxY)
 /*
 Búsqueda de los k vecinos más cercanos
 */
-vector<Element>RTree::queryNearest(Polygon obj, int k)
+void RTree::searchNearest(std::vector<Element> &v,Node* node)
 {
+	node->sort(p_search);
+	if(node->isLeaf)
+	{
+		for (Element e : node->echildren)
+		{
+			v.push_back(e);
+
+		}
+		std::sort(v.begin(), v.end(), Node::funcioncomparee);
+		if (v.size() > k_search)
+		{
+			v.resize(k_search);
+			distance_search = v[v.size() - 1].distanceToPoint(p_search);
+		}
+	}
+	else{
+		for (int i = 0; i < node->children.size(); ++i)
+		{
+			if(node->children[i]->distanceToPoint(p_search)<distance_search)
+			searchNearest(v,node->children[i]);
+		}
+	}
+}
+
+vector<int> RTree::queryNearest(Polygon obj, int k)
+{
+	p_search=(obj.getPoints())[0];
 	vector<Element> result;
-	return result;
+	k_search = k;
+	distance_search = 750.0f;
+	/*result.push_back(2);
+	result.push_back(5);*/
+	searchNearest(result,root);
+	vector<int> index_result;
+	for (size_t i = 0; i < k; i++)
+	{
+		index_result.push_back(result[i].getOid());
+	}
+	return index_result;
 }
 
 /*
