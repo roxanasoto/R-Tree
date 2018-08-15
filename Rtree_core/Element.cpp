@@ -7,10 +7,10 @@ Element::Element(Polygon pol)
     poligono = pol;
    //Calcular la region 
    vector<Point> points = poligono.getPoints();
-   int minX = points.at(0).getX();
-   int minY = points.at(0).getY();
-   int maxX = minX;
-   int maxY = minY;
+   float minX = points.at(0).getX();
+   float minY = points.at(0).getY();
+   float maxX = minX;
+   float maxY = minY;
    for(int i = 1; i < points.size() ; i++)
    {
        Point temp = points.at(i);

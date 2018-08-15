@@ -15,7 +15,7 @@ Polygon::Polygon(int n){
     //   }
     //
 }
-void Polygon::addPoint(int x,int y){
+void Polygon::addPoint(float x, float y){
     Point pt(x,y);
     this->points->push_back(pt);
 }

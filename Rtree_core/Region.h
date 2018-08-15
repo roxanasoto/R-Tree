@@ -5,13 +5,13 @@ using namespace std;
 class Region
 {
     public:
-        int coordX;
-        int coordY;
-        int coordMinX;
-        int coordMinY;
-		int id;
+		float coordX;
+		float coordY;
+		float coordMinX;
+		float coordMinY;
+		float id;
         Region();
-		Region(int coordMinX, int coordMinY, int coordX, int coordY);
+		Region(float coordMinX, float coordMinY, float coordX, float coordY);
         friend bool operator<( Region a , Region b);
         
 };

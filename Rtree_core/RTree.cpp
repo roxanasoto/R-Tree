@@ -23,7 +23,7 @@ RTree::RTree(int max, int min)
 	}
 }
 
-int RTree::getCountElements(){
+int RTree::getCountElements() {
 	return this->countElem;
 }
 
@@ -49,7 +49,14 @@ vector<float> RTree::insertElement(Polygon pol)
 		{
 			leaf->echildren.push_back(obj);
 			if (leaf->echildren.size() > max)
+			{
 				splitNode(leaf);
+			}
+			else
+			{
+				updateRegion(*leaf->region, obj.getMbr());
+				listRegion.push_back(*leaf->region);
+			}
 		}
 		else
 		{
@@ -392,6 +399,7 @@ void RTree::splitNodeInterno(Node *node)
 		node->children.push_back(regionRight);
 		//actualizar region 
 		node->updateRegion();
+		listRegion.push_back(*node->region);
 	}
 	else
 	{
@@ -537,7 +545,7 @@ void RTree::queryRangeInt(Node* node, Region regionSearch, vector<int> &result)
 }
 
 
-vector<int> RTree::queryRange(int minX, int minY, int maxX, int maxY)
+vector<int> RTree::queryRange(float minX, float minY, float maxX, float maxY)
 {
 	//Buscamosregiones que este inluidas en 
 	Region regionSearch;
@@ -554,11 +562,9 @@ vector<int> RTree::queryRange(int minX, int minY, int maxX, int maxY)
 /*
 Búsqueda de los k vecinos más cercanos
 */
-vector<int>RTree::queryNearest(Polygon obj, int k)
+vector<Element>RTree::queryNearest(Polygon obj, int k)
 {
-	vector<int> result;
-	result.push_back(2);
-	result.push_back(5);
+	vector<Element> result;
 	return result;
 }
 
@@ -573,33 +579,6 @@ Region RTree::calcularMbr(Region regionNode, Region regionElem)
 	result.coordX = (regionNode.coordX > regionElem.coordX) ? regionNode.coordX : regionElem.coordX;
 	result.coordY = (regionNode.coordY > regionElem.coordY) ? regionNode.coordY : regionElem.coordY;
 	return result;
-}
-
-/*
-Buscar la region donde debe ser insertado el elemento
-se debe elegir la region donde el area de modificacion sea la mínima
-*/
-Node*  RTree::searchNode(Node *node, Region mbrObj)
-{
-	if (node->isLeaf)
-		return node;
-
-	Region regionTemp = *node->children.at(0)->region;
-	Region regionMin = calcularMbr(regionTemp, mbrObj);
-	Node *nodeResult = new Node();
-	Region temp;
-	nodeResult = node->children.at(0);
-	for (int i = 1; i<node->children.size(); i++)
-	{
-		temp = calcularMbr(*node->children.at(i)->region, mbrObj);
-		if (regionMin < temp)
-		{
-			regionMin = temp;
-			nodeResult = node->children.at(i);
-		}
-	}
-	
-	return(searchNode(nodeResult, mbrObj));
 }
 
 void RTree::deleteTree()
@@ -617,9 +596,18 @@ void RTree::deleteNode(Node *node)
 {
 	if (node == NULL)
 		return;
-	for (Node* child : root->children)
+	int size = (node->isLeaf) ? node->echildren.size() : node->children.size();
+	for (int i = 0; i < size ; i++)
 	{
-		deleteNode(child);
+		if (node->isLeaf) 
+		{
+			//node->echildren.at(i) = NULL;
+		}
+		else
+		{
+			deleteNode(node->children.at(i));
+		}
+		
 	}
 	delete node;
 }

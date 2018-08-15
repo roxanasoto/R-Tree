@@ -8,7 +8,7 @@ Region::Region()
 	this->coordX = NULL;
 	this->coordY = NULL;
 }
-Region::Region(int coordMinX, int coordMinY, int coordX, int coordY)
+Region::Region(float coordMinX, float coordMinY, float coordX, float coordY)
 {
 	this->coordMinX = coordMinX;
 	this->coordMinY = coordMinY;

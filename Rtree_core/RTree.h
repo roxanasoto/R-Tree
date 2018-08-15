@@ -17,25 +17,20 @@ class RTree
 		float calcArea(Region nodeRegion, Region elemRegion);
 		void splitNode(Node *node);
 		void splitNodeInterno(Node *node);
-		void updateRegion(Region &regionBase, Region region);
-
 		vector<float> getPointRegion();
-
-		Node* searchNode(Node *node, Region mbrObj);
-		
 		Region calcularMbr(Region regionNode, Region regionElem);
 		void queryRangeInt(Node *node, Region regionSearch, vector<int> & result);
+		void updateRegion(Region &regionBase, Region region);
 		void updateRegion(Node* node, Element *elem);
 		void print(Node *node);
+		void deleteNode(Node *node);
     public:
         RTree(int max, int min);
         vector<float> insertElement( Polygon obj);
-
-		vector<int> queryRange(int minX, int minY, int maxX, int maxY);
-        vector<int> queryNearest(Polygon obj, int k);
-		void printTree();
-		void deleteTree();
-		void deleteNode(Node *node);
+		vector<int> queryRange(float minX, float minY, float maxX, float maxY);
+        vector<Element> queryNearest(Polygon obj, int k);
 		int getCountElements();
+		void deleteTree();
+		void printTree();
 
 };
