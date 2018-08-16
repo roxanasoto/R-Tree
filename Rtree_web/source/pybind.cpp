@@ -17,7 +17,7 @@ class vc{
     public: 
         vc(){
             puntos=new vector<float>();
-            rtree = new RTree(3,1);
+            rtree = new RTree(6,1);
             no_polygons = 0;
         };
         void set_vector();

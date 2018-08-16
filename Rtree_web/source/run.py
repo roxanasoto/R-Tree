@@ -90,8 +90,8 @@ def rangeQuery():
     #for coordenada in datos:
     x1 = int(datos[0]['x1'])
     y1 = int(datos[0]['y1'])
-    x2 = int(datos[0]['x2'])
-    y2 = int(datos[0]['y2'])
+    x2 = int(datos[0]['x2']+datos[0]['x1'])
+    y2 = int(datos[0]['y2']+datos[0]['y1'])
     puntosInput.append(x1)
     puntosInput.append(y1)
     puntosInput.append(x2)
