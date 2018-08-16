@@ -43,6 +43,8 @@ $(document).ready(function(){
 
 function clear_tree(){
     clear_canvas()
+    perimeters=new Array();
+    id=0;
     var url = "/clear";
 
     $.ajax({
@@ -120,6 +122,7 @@ function getPosition(eventPoint){
     var rectPoint = canvas.getBoundingClientRect();
     var x = eventPoint.clientX - rectPoint.left; // x == the location of the click in the document - the location (relative to the left) of the canvas in the document
     var y = eventPoint.clientY - rectPoint.top; // y == the location of the click in the document - the location (relative to the top) of the canvas in the document
+    
     var point = new Array();
     point.push({'x':x,'y':y});
     perimeters.push(point);
@@ -453,8 +456,12 @@ function reDrawElement(list){
 }
 function buildNearest(eventPointQ){
 
-    var x = eventPointQ.clientX;
-    var y = eventPointQ.clientY;
+    var rectPoint = canvas.getBoundingClientRect();
+    var x = eventPointQ.clientX - rectPoint.left; // x == the location of the click in the document - the location (relative to the left) of the canvas in the document
+    var y = eventPointQ.clientY - rectPoint.top; // y == the location of the click in the document - the location (relative to the top) of the canvas in the document
+    
+    //var x = eventPointQ.clientX;
+    //var y = eventPointQ.clientY;
     var k=Number(document.getElementById("myNumberK").value);
     console.log(k);
     var pointMarker= new Array();

@@ -6,7 +6,8 @@
         <meta name="description" content="An example using jPolygon">
         <meta name="keywords" content="HTML,CSS,JavaScript,jPolygon">
         <meta name="author" content="Roxana Soto">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+        <script type="text/javascript" src="{{url_for('static',filename='js/jquery.min.js')}}"></script> 
         <link rel="stylesheet" type = "text/css" href="css/style.css">
     </head>
     <body onload="clear_canvas()">
@@ -62,7 +63,7 @@
 
 
             <div class="clear_tree">
-                <button onclick="clearcanvas()">Clear</button>
+                <button onclick="clear_tree()">Clear</button>
             </div>
             <div class="references">
                 <p>Go to <a href="https://www.youtube.com/watch?v=ZxfR_94zuno&t=1s">project video</a> - <a href="https://github.com/roxanasoto/R-Tree">source code</a></p>
