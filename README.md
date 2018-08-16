@@ -136,4 +136,6 @@ Se levantara el servidor.
 Con el servidor ya ejecutandose, abra su navegador(Chrome de preferencia) e ingrese a la siguiente ruta:
 http://127.0.0.1:8001/rtree
 
+La aplicacion se encuentra tambien disponible en la web a traves del siguiente enlace:
+http://dharukun.pythonanywhere.com/rtree
 
