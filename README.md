@@ -92,7 +92,7 @@ Active el entorno virtual que creo con el siguiente comando:
 - source env/bin/activate
 
 El bash debe modificarse por ejemplo:
-
+- (env) $
 
 ## 7. Instalar las dependencias
 Recuerde que en la terminal estamos en la carpeta “CarpetaCreada” y tiene activa el entorno virtual que creo . Ahora instale las dependencias de la aplicacion con el siguiente comando:
