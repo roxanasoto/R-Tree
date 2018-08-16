@@ -88,10 +88,10 @@ def rangeQuery():
     datos = request.json
     puntosInput=[]
     #for coordenada in datos:
-    x1 = datos[0]['x1']
-    y1 = datos[0]['y1']
-    x2 = datos[0]['x2']
-    y2 = datos[0]['y2']
+    x1 = int(datos[0]['x1'])
+    y1 = int(datos[0]['y1'])
+    x2 = int(datos[0]['x2'])
+    y2 = int(datos[0]['y2'])
     puntosInput.append(x1)
     puntosInput.append(y1)
     puntosInput.append(x2)
@@ -117,8 +117,8 @@ def nearestQuery():
 
     datos = request.json
     puntosInput=[]
-    x = datos[0]['x']
-    y = datos[0]['y']
+    x = int(datos[0]['x'])
+    y = int(datos[0]['y'])
     k = datos[1]['k']
     puntosInput.append(x)
     puntosInput.append(y)

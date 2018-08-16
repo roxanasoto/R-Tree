@@ -51,6 +51,8 @@ function clear_canvas(){
 }
 function clear_tree(){
     clear_canvas()
+    perimeters=new Array();
+    id=0;
     var url = "/clear";
 
     $.ajax({
@@ -87,14 +89,17 @@ function drawRegions(list) {
     ctx.strokeStyle = 'black';
     var idR=0;
     for(var i= 0;i<list.length;i=i+4){
-
-        ctx.beginPath();
-        ctx.strokeStyle = 'rgb(' + Math.floor(255 - 42.5 * i) + ', ' + Math.floor(255 - 42.5 * j) + ', 0)';
-        ctx.lineWidth = 8;
-        ctx.strokeRect(list[i],list[i+1],list[i+2],list[i+3]);
-        ctx.font = "12px Arial";
+    	ctx.strokeStyle = 'black'
+    	ctx.font = "24px Arial";
+    	ctx.lineWidth = 1;
         ctx.strokeText("R"+idR.toString(),list[i],list[i+1]);
         idR=idR +1;
+
+        ctx.beginPath();
+        ctx.strokeStyle = "#"+((1<<24)*Math.random()|0).toString(16);
+        ctx.lineWidth = 4;
+        ctx.strokeRect(list[i],list[i+1],list[i+2],list[i+3]);
+        
         ctx.closePath();
     }
 
@@ -449,8 +454,12 @@ function reDrawElement(list){
 }
 function buildNearest(eventPointQ){
 
-    var x = eventPointQ.clientX;
-    var y = eventPointQ.clientY;
+    var rectPoint = canvas.getBoundingClientRect();
+    var x = eventPointQ.clientX - rectPoint.left; // x == the location of the click in the document - the location (relative to the left) of the canvas in the document
+    var y = eventPointQ.clientY - rectPoint.top; // y == the location of the click in the document - the location (relative to the top) of the canvas in the document
+    
+    //var x = eventPointQ.clientX;
+    //var y = eventPointQ.clientY;
     var k=Number(document.getElementById("myNumberK").value);
     console.log(k);
     var pointMarker= new Array();
