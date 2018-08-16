@@ -41,6 +41,14 @@ $(document).ready(function(){
     });
 });
 
+//funciones para limpiar la ventana
+function clear_canvas(){
+    ctx = undefined;
+    perimeter = new Array();
+    complete = false;
+    document.getElementById('coordinates').value = '';
+    start();
+}
 function clear_tree(){
     clear_canvas()
     perimeters=new Array();
@@ -59,15 +67,6 @@ function clear_tree(){
        }
    });
 
-}
-
-//funciones para limpiar la ventana
-function clear_canvas(){
-    ctx = undefined;
-    perimeter = new Array();
-    complete = false;
-    document.getElementById('coordinates').value = '';
-    start();
 }
 function start(with_draw) {
     var img = new Image();
@@ -90,17 +89,17 @@ function drawRegions(list) {
     ctx.strokeStyle = 'black';
     var idR=0;
     for(var i= 0;i<list.length;i=i+4){
-
-        ctx.beginPath();
-        ctx.strokeStyle = 'black';
-        var jaja=list[i];
-        jaja=list[i+1];
-        jaja=list[i+2];
-        jaja=list[i+3];
-        ctx.strokeRect(list[i],list[i+1],list[i+2],list[i+3]);
-        ctx.font = "12px Arial";
+    	ctx.strokeStyle = 'black'
+    	ctx.font = "24px Arial";
+    	ctx.lineWidth = 1;
         ctx.strokeText("R"+idR.toString(),list[i],list[i+1]);
         idR=idR +1;
+
+        ctx.beginPath();
+        ctx.strokeStyle = "#"+((1<<24)*Math.random()|0).toString(16);
+        ctx.lineWidth = 4;
+        ctx.strokeRect(list[i],list[i+1],list[i+2],list[i+3]);
+        
         ctx.closePath();
     }
 
@@ -162,7 +161,7 @@ var funcEventPoint = function(eventPoint) {
     getPosition(eventPoint);
 };
 function insertPoint(elem){
-    alert(elem.id);
+    alert("You actived the function INSERT POINT, read instrucctions");
     ctx.putImageData(ImageElem, 0, 0);
     canvas.addEventListener('click',funcEventPoint );
     canvas.removeEventListener('click', funcEventPolygon);
@@ -332,7 +331,7 @@ var funcEventPolygon = function(eventPolygon) {
            point_it(eventPolygon);
 };
 function insertPolygon(elem){
-    alert(elem.id);
+    alert("You actived the function INSERT POLYGON, read instrucctions");
     console.log('function insertPolygon;');
     ctx.putImageData(ImageElem, 0, 0);
     canvas.addEventListener('click',funcEventPolygon );
@@ -408,8 +407,8 @@ function initRemoveRange() {
   canvas.removeEventListener('mouseup', mouseUp, false);
   canvas.removeEventListener('mousemove', mouseMove, false);
 }
-function queryRange(){
-    alert("You activated the function QUERY NEAREST");
+function queryRange(elem){
+    alert("You activated the function QUERY NEAREST, read instrucctions");
     console.log('function queryRange');
     canvas.removeEventListener('click', funcEventPoint);
     canvas.removeEventListener('click', funcEventPolygon);
@@ -501,13 +500,13 @@ ctx.putImageData(ImageGlobal, 0, 0);
         buildNearest(event);
 }
 function queryNearest(elem){
-
+    alert("You activated the function QUERY NEAREST, read instrucctions");
     console.log("function queryNearest");
 
     canvas.removeEventListener('click',funcEventPoint);
     canvas.removeEventListener('click', funcEventPolygon);
     initRemoveRange();
     canvas.addEventListener("mousemove", funcNearestQuery)
-//miau...suerte
+
 
 }
