@@ -604,7 +604,7 @@ vector<int> RTree::queryNearest(Polygon obj, int k)
 	p_search=(obj.getPoints())[0];
 	vector<Element> result;
 	k_search = k;
-	distance_search = 750.0f;
+	distance_search = 10000000.0f;
 	searchNearest(result,root);
 	vector<int> index_result;
 	for (size_t i = 0; i < k; i++)
