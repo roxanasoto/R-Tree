@@ -13,17 +13,19 @@
 #functions{
     background-position: right top;
     background-repeat: no-repeat, repeat;
-    padding: 30px;
+    padding: 5px;
     margin: 0;
 
 }
-
+#myNumberK{
+       width: 4em;
+}
 body{
     background-color: #B0C681;
 }
 button{
-    font-size: 20px;
-    padding: 5px 10px;
+    font-size: 14px;
+    padding: 4px 8px;
 
 }
 h1{
@@ -34,40 +36,39 @@ h1{
 }
 h2{
     text-indent: 400px;
-    font-size: 15px;
+    font-size: 18px;
     color:black;
 }
 p{
-    font-size: 28px;
+    font-size: 20px;
     color:green;
     text-transform: uppercase;
 }
 p2{
-    font-size: 20px;
+    font-size: 15px;
     text-indent: 70px;
 
 }
-.insert{
+.insertquery{
 
     background: white;
-    with: 400px:
-    height: 100px;
+    width: 25em;
     padding: 20px;
-    border: 10px solid white;
+    border: 1px solid white;
 }
 .query{
     background: white;
     with: 400px:
     height: 100px;
     padding: 20px;
-    border: 10px solid white;
+    border: 1px solid white;
 }
 .data{
     background: white;
     with: 400px:
     height: 100px;
     padding: 20px;
-    border: 10px solid white;
+    border: 1px solid white;
 }
 .clear{
     background: white;

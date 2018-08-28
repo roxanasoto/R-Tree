@@ -264,7 +264,7 @@ function point_it(eventPolygon) {
 
     var rectPolygon, x, y;
 
-    if(eventPolygon.ctrlKey || eventPolygon.which === 3 || eventPolygon.button === 2){
+    if(eventPolygon.ctrlKey || eventPolygon.metaKey || eventPolygon.which === 3 || eventPolygon.button === 2){
         if(perimeter.length==2){
             alert('You need at least three points for a polygon');
             return false;
