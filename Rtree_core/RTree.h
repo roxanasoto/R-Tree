@@ -20,6 +20,7 @@ class RTree
 		float calcArea(Region nodeRegion, Region elemRegion);
 		void splitNode(Node *node);
 		void splitNodeInterno(Node *node);
+		void checkParent(Node *node);
 		vector<float> getPointRegion();
 		Region calcularMbr(Region regionNode, Region regionElem);
 		void queryRangeInt(Node *node, Region regionSearch, vector<int> & result);

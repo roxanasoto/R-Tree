@@ -66,9 +66,23 @@ vector<float> RTree::insertElement(Polygon pol)
 		}
 	}
 	//return state;
+	checkParent(root);
 	return getPointRegion();
 }
 
+/*Verificar parent*/
+void RTree::checkParent(Node *node)
+{
+	if (node != NULL && !node->isLeaf) 
+	{
+		for (int i = 0; i < node->children.size(); i++)
+		{
+			node->children.at(i)->parent = node;
+			checkParent(node->children.at(i));
+		}
+	}
+
+}
 
 /*
 Choose leaft to insert
@@ -270,7 +284,7 @@ void  RTree::splitNode(Node* node)
 			areaNodeRigth->id = ++countRegion;
 			regionRight->region = areaNodeRigth;
 			regionRight->echildren = nodeRigth;
-			regionRight->parent = node;
+			regionRight->parent = node->parent;
 
 			//listRegion.push_back(*areaNodeRigth);
 
