@@ -349,6 +349,15 @@ function drawRegion() {
     var y1 = rect.startY;
     var x2 = rect.w;
     var y2 = rect.h;
+    if(x2<0){
+        x1=x1+x2;
+        x2=-x2
+    }
+
+    if(y2<0){
+        y1=y1+y2;
+        y2=-y2
+    }
     ctx.strokeRect(rect.startX, rect.startY, rect.w, rect.h);
     pointsRectangle= new Array();
     pointsRectangle.push({'x1':x1,'y1':y1,'x2':x2,'y2':y2 });
