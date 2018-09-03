@@ -41,7 +41,7 @@ Element::Element(Polygon pol)
 
 void Element::setOid(int id)
 {
-  oid = id;
+	oid = id;
 }
 
 int Element::getOid()
@@ -61,21 +61,21 @@ Polygon Element::getPolygon()
 
 float Element::getAreaPol()
 {
-  //if (mbr != NULL)
-  //{
-    float axisX = mbr.coordX - mbr.coordMinX;
-    float axisY = mbr.coordY - mbr.coordMinY;
-    return axisX*axisY;
-  //}
+	//if (mbr != NULL)
+	//{
+		float axisX = mbr.coordX - mbr.coordMinX;
+		float axisY = mbr.coordY - mbr.coordMinY;
+		return axisX*axisY;
+	//}
 }
 
 void Element::print()
 {
-  for (int i = 0; i < poligono.getPoints().size(); i++)
-  {
-    cout << "(" << poligono.getPoints().at(i).getX() << "," << poligono.getPoints().at(i).getY() << ") " ;
-  }
-  cout << endl;
+	for (int i = 0; i < poligono.getPoints().size(); i++)
+	{
+		cout << "(" << poligono.getPoints().at(i).getX() << "," << poligono.getPoints().at(i).getY() << ") " ;
+	}
+	cout << endl;
 }
 
 
