@@ -64,9 +64,13 @@ function clear_tree(){
        success: function(response)
        {
             console.log('se limpio: ',response);
+
        }
    });
-
+   canvas.removeEventListener('click', funcEventPoint);
+    canvas.removeEventListener('click', funcEventPolygon);
+    canvas.removeEventListener("click", funcNearestQuery);
+initRemoveRange();
 }
 function start(with_draw) {
     var img = new Image();
@@ -99,7 +103,7 @@ function drawRegions(list) {
         ctx.strokeStyle = "#"+((1<<24)*Math.random()|0).toString(16);
         ctx.lineWidth = 4;
         ctx.strokeRect(list[i],list[i+1],list[i+2],list[i+3]);
-        
+
         ctx.closePath();
     }
 
@@ -121,7 +125,7 @@ function getPosition(eventPoint){
     var rectPoint = canvas.getBoundingClientRect();
     var x = eventPoint.clientX - rectPoint.left; // x == the location of the click in the document - the location (relative to the left) of the canvas in the document
     var y = eventPoint.clientY - rectPoint.top; // y == the location of the click in the document - the location (relative to the top) of the canvas in the document
-    
+
     var point = new Array();
     point.push({'x':x,'y':y});
     perimeters.push(point);
@@ -166,7 +170,7 @@ function insertPoint(elem){
     canvas.addEventListener('click',funcEventPoint );
     canvas.removeEventListener('click', funcEventPolygon);
     initRemoveRange();
-    canvas.removeEventListener("mousemove", funcNearestQuery)
+    canvas.removeEventListener("click", funcNearestQuery)
 }
 //funciones insert Poligono
 function point(x, y){
@@ -337,7 +341,7 @@ function insertPolygon(elem){
     canvas.addEventListener('click',funcEventPolygon );
     canvas.removeEventListener('click', funcEventPoint);
     initRemoveRange();
-    canvas.removeEventListener("mousemove", funcNearestQuery)
+    canvas.removeEventListener("click", funcNearestQuery)
 }
 //funciones query Range
 var pointsRectangle;
@@ -421,7 +425,7 @@ function queryRange(elem){
     console.log('function queryRange');
     canvas.removeEventListener('click', funcEventPoint);
     canvas.removeEventListener('click', funcEventPolygon);
-    canvas.removeEventListener("mousemove", funcNearestQuery);
+    canvas.removeEventListener("click", funcNearestQuery);
     //document.getElementById("punto").disabled = true;
     initRange();
 }
@@ -465,11 +469,13 @@ function reDrawElement(list){
 function buildNearest(eventPointQ){
 
     var rectPoint = canvas.getBoundingClientRect();
+
     var x = eventPointQ.clientX - rectPoint.left; // x == the location of the click in the document - the location (relative to the left) of the canvas in the document
     var y = eventPointQ.clientY - rectPoint.top; // y == the location of the click in the document - the location (relative to the top) of the canvas in the document
-    
-    //var x = eventPointQ.clientX;
+
+   // var x = eventPointQ.clientX;
     //var y = eventPointQ.clientY;
+
     var k=Number(document.getElementById("myNumberK").value);
     console.log(k);
     var pointMarker= new Array();
@@ -515,7 +521,8 @@ function queryNearest(elem){
     canvas.removeEventListener('click',funcEventPoint);
     canvas.removeEventListener('click', funcEventPolygon);
     initRemoveRange();
-    canvas.addEventListener("mousemove", funcNearestQuery)
+    //canvas.addEventListener("mousemove", funcNearestQuery)
+    canvas.addEventListener("click", funcNearestQuery)
 
 
 }
