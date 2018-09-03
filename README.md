@@ -115,9 +115,10 @@ Para ello ejecute el siguiente comendo:
 - cd R-Tree/Rtree_web/source
 
 ### 8.3 Construir el modulo: 
-Ya estando en la carpeta /source desde el terminal ejecute el siguiente comando:
+Abra el documento "comando.txt" en el siguiente enlace: 
+https://drive.google.com/open?id=1LOdgtJ3c0Idjh5s29khBiDewtcDghS6z
 
-- g++ -O3 -Wall -shared -std=c++11 -undefined dynamic_lookup `python -m pybind11 --includes` pybind.cpp ../../Rtree_core/Polygon.cpp ../../Rtree_core/Point.cpp ../../Rtree_core/RTree.cpp  ../../Rtree_core/Element.cpp ../../Rtree_core/Region.cpp ../../Rtree_core/Node.cpp  -o mi_modulo`python-config --extension-suffix`
+copie el comando(todo el texto del documento) y ejecutelo en la terminal.
  
 El comando anterior creara el archivo “mi_modulo.so” en la carpeta source (), si no tiene la extencion .so simplemente modifique el nombre agregandole la extension. (Nota:  es importante que el nombre del archivo generado sea: “mi_modulo.so”). 
 La siguiente imagen muestra el módulo construido
