@@ -21,6 +21,7 @@ class Element
         int oid;
         Region mbr;
         Polygon poligono;
+	Point punto;
 };
 
 #endif // ELEMENT_H

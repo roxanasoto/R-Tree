@@ -80,16 +80,20 @@ void Element::print()
 
 
 float Element::distanceToPoint(Point p){
-  Point difference;
-  int distanceResult;
-
   vector<Point> poli=poligono.getPoints();
-  distance=sqrt((p.getX()-poli[0].getX())*(p.getX()-poli[0].getX())+(p.getY()-poli[0].getY())*(p.getY()-poli[0].getY()));
-  for(auto punto:poli)
-  {
-    float temp=sqrt((p.getX()-punto.getX())*(p.getX()-punto.getX())+(p.getY()-punto.getY())*(p.getY()-punto.getY()));
-    if(temp<distance)
-      distance=temp;
+  int tam=poli.size();
+  if(tam<2)
+    distance = p.distanceToPoint(poli[0]);
+  else{
+    distance =p.distanceToSegment(poli[tam-1],poli[0]);
+    for (int i = 1; i < tam; ++i)
+    {
+      float temp=p.distanceToSegment(poli[i-1],poli[i]);
+      if(temp<distance)
+        distance=temp;
+      cout<<distance;
+    }
   }
+  //distance=sqrt((p.getX()-poli[0].getX())*(p.getX()-poli[0].getX())+(p.getY()-poli[0].getY())*(p.getY()-poli[0].getY()));
   return this->distance;
 }
