@@ -1,7 +1,8 @@
 #ifndef POINT_H
 #define POINT_H
-#include <math.h>
+#include <cmath>
 #include "Point.h"
+using namespace std;
 
 class Point
 {
